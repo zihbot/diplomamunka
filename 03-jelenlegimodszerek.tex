@@ -1,0 +1,44 @@
+%----------------------------------------------------------------------------
+\chapter{Diszkretizáció statisztikai módszerei}
+%----------------------------------------------------------------------------
+
+Az előző fejezetben leírt Bayes-hálók csomópontjai folytonos és diszkrét valószínűségi változók is lehetnek. Az automatizált struktúra tanulás során azonban az élek feltételes valószínűségi táblákként adódnak, ezek az algoritmusak csak diszkrét valószínűségi változókkal tudnak dolgozni. Ezért szükséges, hogy a bemeneti folytonos változók a struktúra tanulás előtt diszkretizálva legyenek.
+
+\section{Egyváltozós diszkretizáció}
+A diszkretizációhoz az egyszerűbb megoldás, hogy minden változó a többitől függetlenül kerül diszkretizálásra. Az adatsor változatlansága esetén a változó diszkretizációja konstans marad.
+
+A diszkretizációs intervallumok számának meghatározására több lehetőség van. Meghatározható egy konstans. Ezt szakértőre kell bízni, vagy egy viszonylag kicsi - de legalább 2 - számot választani, amihez emberi beavatkozásra van szükség. Dinamikusan meghatározható, kiválasztható az eredeti adatsor diszkrét változóit vizsgálva a legnagyobb kardinalitás.
+
+\subsection{Egyenlő hosszú intervallumok}
+A vizsgált változó értékkészletének tartománya felosztható az elvárt kardinalitásnak megfelelő, egyenlő hosszúságú intervallumra. Ennek kiszámolásához csak egy maximum és minimum keresésre van szükség, így rendkívül gyors és egyszerű. A diszkretizált értékekek ilyenkor az eredeti értékek hisztogramján mutatják, hogy az adott érték melyik vödörbe került. Kiugró értékek esetén előfordulhat, hogy az egyes intervallumokba nagyon különböző számú adatpont esik, így a sok adatpontot tartalmazó intervallumokban az adatpontok közötti eltérések könnyen elvesznek, nem tanulható meg a Bayes-háló átlal.
+
+\subsection{Egyenlő mintaszámú intervallumok}
+A minták növekvő sorrendjében minden "N / elvárt kardinalitás" pozícióba egy diszkertizációs intervallum határ kerül. Az előző példánál maradva itt minden változó értékhez a hisztogram-kiegyenlítés után őt tartalmazó vödör számát rendeljük.
+
+\subsection{Tárgyterület-függő diszkretizálás}
+Amennyiben az adott statisztikai változóról több információ áll rendelkezésre, készíthető speciális, az adott tárgyterülethez kapcsolódó diszkretizáció.
+
+Ilyen lehet a laboratóriumi paraméterek \cite{katayev2010establishing} diszkretizálása, amely a jelenlegi gyakorlatot ülteti át algoritmikus formába. A mostani, erre a célra gyűjtött adatok helyett nagy mennyiségű, más mérési céllal készült statisztikai adatokkal határozza meg a referencia tartományt.
+
+\section{Többváltozós diszkretizáció}
+Az egyváltozós diszkretizáció egyszerűségéből adódik a hátránya is. A Bayes-hálóra azért van szükség, mert a változók között vannak összefüggések. Amikor egy-egy változó diszkretizációja izoláltan történik, a tartalmazott információ mennyisége csökken, és ez torzítja az összefüggéseket. Ezért a függő változók diszkretizációja során érdemes lehet figyelembe venni a kapcsolatokat, így az azokból származó információ kevésbé veszik el.
+
+\subsection{Minimális hosszúságú leírás elve alapján}
+A minimális hosszúságú leírás elve (MDL) azt mondja ki, hogy egy adathalmaz legjobb modellje az, amelyik minimalizálja a leírásához szükséges információ mennyiségét \cite{friedman1996discretizing}.
+
+Az információ sűrűségének jellemzésére megfelelő mutató az (információ) entrópia. Így a feladatot megfogalmazhatjuk úgy is, hogy minimalizálandó a diszkretizációs elv szerint a modell entrópiája.
+
+%képletek Friedmantól
+
+Ennek megoldása $O(n^3)$ időben futtatható, ahol az $n$ a tanító adatok száma. 
+
+\subsection{Bayes-döntés alapján}
+A dsizkretizációs elv kiválasztható úgy, hogy mindegyikre kiszámoljuk \textit{a posteriori} becsléssel, mennyire valószínűek a megadott adatokon, és ezek közül kiválasztjuk a legnagyobbat. A Bayes-tétel miatt ez felírható a likelihood és a prior szorzataként.
+$$ \argmax_{\Lambda}{P(\Lambda | D)} = 
+\argmax_{\Lambda}{P(D | \Lambda) \cdot P(\Lambda)} $$
+ahol $\Lambda$ a diszkretizációs elv, $D$ az adat.
+
+Az \textit{a posteriori} becslés esetén a prior megfelelő megválasztása kulcsfontosságú. A könnyebb programozhatóság kedvéért a valószínűség helyett annak negatív logaritmáltját érdemes minimalizálni. Mivel a logaritmus szigorúan monoton növekvő függvény, ez nem változtat az eredményen, de a lebegőpontos számábrázolás miatt pontosabban számolható számítógépen.
+
+Mivel megoldható a feladat dinamikus programozással (lehet építeni a korábban kiszámolt valószínűségekre), így az futásidő $O(n^2)$-re csökken, ahol $n$ a tanító adatok száma.
+

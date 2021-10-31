@@ -1,0 +1,46 @@
+%----------------------------------------------------------------------------
+\chapter{Algoritmikus többváltozós diszkretizáció}
+%----------------------------------------------------------------------------
+A Diplomamunka A Bayes-döntés alapú diszkretizációs eljárást valósította meg. Ezért az alábbi fejezetben ennek részletesebb ismertetése történik. Az előző fejezetben láthattuk, hogy az algoritmus lényege a következő képlet minimalizálása:
+$$ \argmin_{\Lambda}{(-\ln{P(D | \Lambda)} - \ln{P(\Lambda)})}$$
+Az első tag a likelihood, a második a prior.
+
+\section{Prior}
+A tanulmányban \cite{chen2017learning} leírt algoritmus prior tagja az alábbi:
+$$\sum_{i=1}^{k-1} -\ln{(1-\exp{(
+-L \cdot \frac{x_{\lambda_i+1}-x_{\lambda_i}}{x_{n}-x_{1}})})} +
+\sum_{i=1}^{k} 
+-L \cdot \frac{x_{\lambda_i}-x_{\lambda_{i-1}+1}}{x_{n}-x_{1}}$$
+ahol az $x_i$ az $i$. értéke a folytonos adatsornak (növekvő sorrend esetén), $\lambda_i$ a vizsgált diszkretizációs elv $i$. tartomány végpontjának indexe, $k$ az intervallumok száma, $n$ az adatok száma és $L$ egy választható együttható, amelyhez közelíteni fog az intervallumok száma.
+
+A tag értéke akkor lesz alacsony, amikor az intervallumok két végpontja közötti különbség a teljes adatsor hosszának $L$-ed része.
+
+\section{Likelihood}
+A likelihood tag az alábbi \cite{boulle2006modl}:
+$$
+\sum_{i = 1}^{k} \left[ \ln {\gamma_i+J_P-1 \choose J_P-1} + \ln \frac{\gamma_i!}{n_{i,1}^{(P)}! + n_{i,2}^{(P)}! + \dotsc + n_{i,J_P}^{(P)}!} + \right]
+$$
+$$
+\sum_{i = 1}^{k}\sum_{j=1}^{n_c} \sum_{l=1}^{J_\textbf{S}^{(j)}} \left[ \ln {n_{i,l}^{(j)}+J_{C_j}-1 \choose J_{C_j}-1} + \ln \frac{n_{i,l}^{(j)}!} {n_{i,1,l}^{(j)}! + n_{i,2,l}^{(j)}! + \dotsc + n_{i,J_{C_j},l}^{(j)}!}  \right] 
+$$
+ahol $\gamma_i$ az i. intervallumba tartozó adatok száma, $J_P$ a változó szülei által felvehető értékek száma (a szülők kardinalitásának szorzata), $n_{i,j}^{(P)}$ a szülő j. esetének számossága az i. intervallumban.
+Valamint $n_c$ a változó gyerekeinek száma, $J_S^{j}$ a változó j. gyereke szülei felvehető értékeinek száma, $J_{C_j}$ a változó j. gyereke felvehető értékeinek száma, $n_{i,l}^{(j)}$ a j. gyerek szülei l. esetének számossága az i. intervallumban, $n_{i,r,l}^{(j)}$ pedig a j. gyerek r. esetének és szülei l. esetének számossága az i. intervallumban.
+
+A likelihood tag lényege, hogy a változó szülei, gyerekei és azok szülei lehetséges értékeit figyelembe véve ezekből minél kevesebb típusút minél nagyobb számban tartalmazzon az intervallum. Amennyiben ez teljesül, akkor sikerült az intervallumot úgy meghatározni, hogy a tőle függő változók szerint lett csoportokra bontva.
+
+Elég a szülő, gyerek, gyermeki szülőket vizsgálni, hiszen ez a változó Markov-takarója, amennyiben ezek a változók rögzítettek, akkor a hálóban levő többi változótól független a vizsgált változó (a Markov-takaróján keresztül feltételesen függ a többitől). Így lehet lokálisan diszkretizálni.
+
+\section{Dinamikus programozás}
+A \textit{likelihood} tagnál felismerhető, hogy minden tagja $i=1$-től $k$-ig van összeadva, tehát minden intervallumra külön kiszámolható a szumma belső része. Valamint kiszámólható $1 \dotsc n$ minden intervallumára, és az ezekből képzett teljes és diszjunkt halmazok (amelybe olyan intervallumok kerülnek, hogy közülük $1 \dotsc n$ között minden számot pontosan egy intervallum tartalmaz) érvényes diszkretizációs elvek lesznek és minimalizálható rajtuk az eredeti feltétel. Mivel az intervallumokra külön kiszámoltuk a \textit{likelihood} "belső" részét (legyen $h$), ezek összege adja meg a diszkretizációs elv \textit{likelihood}ját.
+
+Ez egy dinamikus programozási feladat, eltárolhatjuk minden értékpár közt a $h$-t, és kiválasztjuk $O(n^2)$ időben a minimális értékű halmazt, amely a teljes $1 \dotsc n$ tartományt pontosan lefedi.
+
+\section{Több változó diszkretizálása}
+Ha az adatok közt több folytonos változó van, kezdetben mindegyiket L egyenlő számú adatot tartalmazó intervallumra bontjuk, tehát az \textit{Egyenlő mintaszámú intervallumok elve} szerint diszkretizáljuk,  majd iterálunk a folytonos változókon. Az algoritmus futtatása olyan adatsoron történik, amelyben a kiválasztott változó folytonos, minden más változó diszkrét vagy az aktuálisan legjobb módon diszkretizált. Így a kiválasztott folytonos változóra megkapjuk a jelenleg legmegfelelőbb diszkretizációt.
+
+Az eredeti tanulmány szerint érdemes a gyerekektől indulva iterálni, ám a félév során ezt nem implementáltam, mivel a háló is tanulva volt, így nem csökkentette volna érdemben a feltételezéseket.
+
+Az iterációt addig futtatjuk, ameddig a diszkretizációs elv nem konvergál.
+
+\section{Struktúra tanulás}
+Egy több változót diszkretizáló lépés után beiktathatunk egy struktúra tanuló lépést, így minden előzetes információ nélkül is készíthetünk az adatokból Bayes-hálót. Ezeket a lépéseket a háló konvergenciájáig, vagy megadott számú alkalommal futtatjuk.

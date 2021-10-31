@@ -1,0 +1,40 @@
+%----------------------------------------------------------------------------
+\chapter{Bayes-döntés alapján diszkretizáló modul}\label{chapter:modul}
+%----------------------------------------------------------------------------
+% végére szekvenciadiagrammok, összehasonlítva az előző fejezet algoritmusával
+
+A Diplomamunka részeként elkészült egy \textit{python} modul\footnote{A python nevezéktanban a függvénykönyvtárakat nevezik moduloknak.}, amely a bemutatott algoritmus használatát könnyíti meg. Az eredeti cikkben bemutatott implementáció \textit{julia} nyelven történt, amely egy gyors és dinamikusan fejlődő nyelv, melyet statisztikai feladatok megoldására gyakran használnak. Az új modul a python nyelven íródott, mert jelenleg ez a nyelv elterjedtebb, és az egyik jelentős előnye, hogy nagy mennyiségű függvénykönyvtárral rendelkezik, és ennek a bővítése segítség lehet a többi felhasználónak.
+
+A modul célja, hogy egy robusztus többváltozós diszkretizációt hajtson végre a kapott adatsoron, valamint a kinyerhető információkat a felhasználó rendelkezésére bocsássa. A \verb|bediscretizer| név a "Bayesian Estimation based DISCRETIZER" rövidítése.
+
+\section{Telepítés}
+A modul jelenleg nem telepíthető pip-pel. Az \ref{appendix:codebase} függelékben szereplő linkről letölthető a bediscretizer könyvtár. Ezt a python HOME könyvtárának (pl: \verb|C:\Python39|) \verb|Lib| alkönyvtárába bemásolva a modul telepítésre került.
+
+\section{Használat}
+Ha a modul telepítve van, a hozzá tartozó python értelmezőben futtatott \verb|import bediscretizer| parancs után felhasználhatóak a biztosított függvények.
+
+A modul központi osztálya a \verb|MultivariateDiscretizer|. Példányosításkor meg kell adni a statisztikai adatsort egy numpy tömbként. Ezen kívül megadható az adatsor neve, amelyet később a kiírásokhoz használ. 
+
+Ezután a \verb|fit()| függvényének meghívásával lehet a tanító algoritmust futtatni. Ennrk megadható, hány alkalommal futtassa a diszkretizáció és struktúra tanulási algoritmusokat, ez az epochok száma.
+A futtatás után kinyerhetőek az adatok a modellből. Egy egyszerű példa látható a \ref{appendix:simpleexample} függelékben.
+
+\section{Elérhető információk}
+A \verb|MultivariateDiscretizer| osztályból az adatsorról sok adat kinyerhető. Ezeknek a listája, és a hozzájuk tartozó leírás szerepel itt.
+
+\subsection{Tagváltozók}
+\begin{itemize}
+    \item[data] A megadott adatsor az előfeldolgozás után. Egy mátrix csak számokkal feltöltve.
+    \item[column\_types] Az automatikusan felismert változótípus, amely lehet \verb|DISCRETE| vagy \verb|CONTINUOUS|. 
+    \item[discretization] A folytonos változókhoz tartozó diszkretizációs intervallumok határai.
+    \item[graph] Az adatsorhoz illesztett gráf.
+    \item[name] Az adatsor neve, amelyet az adatsorból kinyert adatok kijelzéséhez használ.
+\end{itemize}
+
+\subsection{Metódusok}
+\begin{itemize}
+    \setlength{\itemindent}{5em}
+    \item[fit] A tanító algoritmus futását indítja el.
+    \item[show] Az aktív \verb|pyplot figure| gafikonjára kirajzolja az illesztett gráfot.
+    \item[draw\_structure\_to\_file] A paraméterként megadott fájlba menti az illesztett gráf képét.
+    \item[as\_dataframe] Az adatsort \verb|pandas DataFrame| típusúként adja vissza.
+\end{itemize}

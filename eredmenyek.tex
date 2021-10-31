@@ -1,0 +1,36 @@
+%----------------------------------------------------------------------------
+\chapter{Eredmények}
+%----------------------------------------------------------------------------
+
+\section{Iris adathalmaz}
+Először egy hagyományos adathalmazon, az \emph{iris}-en próbáltam ki az algoritmust, itt a tanulmányban publikáltakkal megegyező adatokat kaptam.
+
+\section{Laboradatok}
+\begin{table}[]
+\begin{tabular}{lccc}
+Paraméter & Referencia tartomány (mmol/L) & 1. típusú futtatás & 2. típusú futtatás \\
+\hline
+age  & 44.0 - 65.0 & 59.06                         & 41.29\\
+HDLC & 0.9 - 1.5   & 1.395                         & 1.2, 1.605\\
+TG  & 0.5 - 2.0   & 1.785, 3.54, 3.88             & 1.175\\
+GLU   & 3.9 - 5.8   & 3.95, 4.75, 6.55, 6.7, $\dotsc$ & 5.55
+\end{tabular}
+\caption{Kapott eredmények}
+\label{tab:eredmenyek}
+\end{table}
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=8cm]{figures/result-bayes.png}
+    \caption{1. futtatás Bayes-hálója}
+    \label{fig:result-bayes}
+\end{figure}
+
+A laboradatokkal az első futtatások (magas L érték) és második futtatások ($L = 3$) során kapott eredmények a \ref{tab:eredmenyek} ábrán látható. Az 1. futtatások során keletkezett Bayes-háló a \ref{fig:result-bayes} ábrán látható. A Második futtatásoknál egy láncba fűződtek a változók, úgyhogy a struktúra tanuláson mindenképpen finomítani kell (a pomeganate beépített \emph{Chow-Liu} struktúra tanulásához képest).
+
+A triglicerideknél a kapott érték(ek) nem bíztatóak, jelentősen eltérnek a referenciatartománytól, valószínűleg egyszerűen két részre bontotta csak az intervallumot. A koleszterin és cukor felső határainak közelében viszont talált vágási pontot a 2. típusú futtatás. Valószínűleg itt az idős emberek száma nőtt meg, ezért sikerült megtalálni.
+
+Számomra úgy tűnik, az algoritmus főleg egy "cutoff" pont meghatározására lehet jó, amely felett valamilyen változás van a többi változóban is.
+
+\section{Folyatási lehetőségek}
+A vizsgált folytonos paraméterek közelítették a normál eloszlást. Szerintem érdemes lenne megvizsgálni olyan paraméterekre, melyeknek az eloszlása ettől eltérő, és nem a referencia tartomány két határát, hanem egy "cutoff" pontot kell meghatározni.
