@@ -2,7 +2,9 @@
 %\documentclass[11pt,a4paper,twoside,openright]{report}  % Duplex
 
 %\PassOptionsToPackage{chapternumber=Huordinal}{magyar.ldf}
+\usepackage[utf8]{inputenc}
 \usepackage{t1enc}
+\def\magyarOptions{defaults=hu-min}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{enumerate}
@@ -16,6 +18,7 @@
 \usepackage{anysize}
 \usepackage{footnote}
 \usepackage[magyar]{babel}
+\usepackage{csquotes}
 \usepackage{sectsty}
 \usepackage{setspace}  % Ettol a tablazatok, abrak, labjegyzetek maradnak 1-es sorkozzel!
 \usepackage[hang]{caption}
@@ -69,7 +72,7 @@ sorting=nyt
 %	Setup hyperref package
 %--------------------------------------------------------------------------------------
 \hypersetup{
-    bookmarks=true,            % show bookmarks bar?
+    %bookmarks=true,            % show bookmarks bar?
     unicode=false,             % non-Latin characters in Acrobats bookmarks
     pdftitle={\vikcim},        % title
     pdfauthor={\vikszerzo},    % author

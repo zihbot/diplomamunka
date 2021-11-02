@@ -30,11 +30,11 @@ Az információ sűrűségének jellemzésére megfelelő mutató az (informáci
 
 %képletek Friedmantól
 
-Ennek megoldása $O(n^3)$ időben futtatható, ahol az $n$ a tanító adatok száma. 
+Ennek megoldása $O(n^3)$ időben futtatható, ahol az $n$ a tanító adatok száma.
 
 \subsection{Bayes-döntés alapján}
 A dsizkretizációs elv kiválasztható úgy, hogy mindegyikre kiszámoljuk \textit{a posteriori} becsléssel, mennyire valószínűek a megadott adatokon, és ezek közül kiválasztjuk a legnagyobbat. A Bayes-tétel miatt ez felírható a likelihood és a prior szorzataként.
-$$ \argmax_{\Lambda}{P(\Lambda | D)} = 
+$$ \argmax_{\Lambda}{P(\Lambda | D)} =
 \argmax_{\Lambda}{P(D | \Lambda) \cdot P(\Lambda)} $$
 ahol $\Lambda$ a diszkretizációs elv, $D$ az adat.
 

@@ -5,6 +5,7 @@
 		}
 	],
 	"settings": {
-		"latex-workshop.latex.outDir": "%DIR%/out"
+		"latex-workshop.latex.outDir": "%DIR%/out",
+		"editor.wordWrap": "on"
 	}
 }
