@@ -5,7 +5,7 @@
 Az alábbi fejezetben a Bayes-tétel és annak következményei szerepelnek. Ezek ismerete szükséges a Diplomamunka központi algoritmusának megértéséhez.
 
 \section{Bayes-tétel}
-Jelölje az A esemény bekövetkezésének valószínűségét $P(A)$, $AB = A \cap B$ azt az eseményt, amikor A és B is bekövetkezik, és $P(A|B)$ az A feltételes valószínűségét B-re nézve. Ha A és B független események a feltételes valószínűség definíciójából következik, hogy 
+Jelölje az A esemény bekövetkezésének valószínűségét $P(A)$, $AB = A \cap B$ azt az eseményt, amikor A és B is bekövetkezik, és $P(A|B)$ az A feltételes valószínűségét B-re nézve. Ha A és B független események a feltételes valószínűség definíciójából következik, hogy
 $$P(AB) = P(A \cap B) = P(A|B) \cdot P(B) =  P(B|A) \cdot P(A) $$
 Ebből egy osztással megkapható a tétel állítása
 $$P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}$$
@@ -20,7 +20,7 @@ A teljes eseményrendszerek közötti kapcsolatok irányított gráf formában i
 
 A reprezentáció értelmezése kiterjeszthető. Egyrészt az eseményrendszerek helyett a csomópontokba beillszthetőek valószínűségi változók is. Másrészt az élek menti kapcsolatokat súlyozhatjuk a két valószínűségi változó feltételes valószínűségeivel, amelyben a kiindulópontra vonatkozik a célpontnak a feltételes valószínűsége. Az irány emiatt fontossá válik, az él megfordításakor a Bayes-tétellel számolható ki az ellentétes irányú feltételes valószínűség.
 
-Így a Bayes-háló alkalmassá válik tudásreprezentációra is. Ebben az értelmezésben az élek iránya ok-okozati összefüggést mutat. A háló felépítése szakértőre vagy egy szakértői rendszerre van bízva. Ilyenkor a szakértő megkötéseket tehet, milyen kapcsolatok kell teljesüljenek vagy nem teljesülhetnek, valamint a valószínűségekre és feltételes valószínűségekre is adhat becslést vagy rögzítheti azokat. 
+Így a Bayes-háló alkalmassá válik tudásreprezentációra is. Ebben az értelmezésben az élek iránya ok-okozati összefüggést mutat. A háló felépítése szakértőre vagy egy szakértői rendszerre van bízva. Ilyenkor a szakértő megkötéseket tehet, milyen kapcsolatok kell teljesüljenek vagy nem teljesülhetnek, valamint a valószínűségekre és feltételes valószínűségekre is adhat becslést vagy rögzítheti azokat.
 
 \begin{figure}[htp]
     \centering
@@ -48,12 +48,12 @@ Ehhez hasonlóan a Bayes-hálóban bármely változó rögzítése esetén a tö
 %Háló elemei, elnevezések
 
 \section{Becslés}
-A valószínűségek segítségével becsléseket is adhatunk arra vonatkozóan, hogy a megfigyelések mellett mely állapot a legvalószínűbb. Ezek általánosan használható paraméterezhető modellekre.
+A valószínűségek segítségével becsléseket is adhatunk arra vonatkozóan, hogy a megfigyelések mellett mely állapot a legvalószínűbb. Ezek általánosan használhatóak paraméterezhető modellekre.
 
 \subsection{Legnagyobb valószínűség módszer}
 Ez a módszer intuitívan adódik. Maximális valószínűséget keres az adott megfigyelt adatokhoz. Azt vizsgálja, hogy a lehetséges paraméterezések ($\Lambda$) közül melyik mellett a legnagyobb a megfigyelt adat ($D$) valószínűsége.
 $$\argmax_{\Lambda}{P(D\,|\,\Lambda)}$$
-A maximumkereséshez a valószínűség negatív logaritmusát lehet venni, így numerikusan stabilabb lesz, és ennek keresni a minimumát. Minimumkeresésre több módszert ismerünk, például a deriváltjának nullhelyét keressük. Ez a módszer jól alkalmazható, ha a modell felírható függvényként, és nem áll rendelkezésünkre előzetes ismeret a paraméterekről, csak a modell és a megfigyelések. 
+A maximumkereséshez a valószínűség negatív logaritmusát lehet venni, így numerikusan stabilabb lesz, és ennek keresni a minimumát. Minimumkeresésre több módszert ismerünk, például a deriváltjának nullhelyét keressük. Ez a módszer jól alkalmazható, ha a modell felírható függvényként, és nem áll rendelkezésünkre előzetes ismeret a paraméterekről, csak a modell és a megfigyelések.
 
 \subsection{Bayes-döntés}
 Amennyiben van további ismeretünk a paraméterekről, úgy alkalmazhatunk olyan becslést, amely ezt figyelembe veszi. A Bayes-tétel segítségével vizsgálható a megfigyelt adathoz tartozó legvalószínűbb paraméterezés is, hiszen
