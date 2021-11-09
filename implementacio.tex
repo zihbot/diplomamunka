@@ -2,7 +2,7 @@
 \chapter{Saját implementáció}
 %----------------------------------------------------------------------------
 
-A félév során az előző fejezetben bemutatott algoritmust implementáltam \textit{Python} nyelven. Ebben a fejezetben bemutatom a felhasznált könyvtárakat, valamint a felhasznált adatsort.
+A félév során az előző fejezetben bemutatott algoritmust implementáltam \textit{python} nyelven. Ebben a fejezetben bemutatom a felhasznált könyvtárakat, valamint a felhasznált adatsort.
 
 \section{Könyvtárak}
 Korábbi ismereteim alapján választottam ki az adatelemzéshez szükséges könyvtárakat
@@ -16,10 +16,10 @@ Korábbi ismereteim alapján választottam ki az adatelemzéshez szükséges kö
 \item[pomegranate] Bayes-háló struktúra tanulásához
 \end{labeling}
 
-Ezen kívül beépített Python könyvtárakat is felhasználtam, valamint a saját implementációmat is felbontottam a struktúra és diszkretizáció tanulására külön, valamint egyéb segédfüggvényekre. A fő fájlt a \textit{Visual Studio Code} Jupyter notebook kiegészítőjével futtattam.
+Ezen kívül beépített python könyvtárakat is felhasználtam, valamint a saját implementációmat is felbontottam a struktúra és diszkretizáció tanulására külön, valamint egyéb segédfüggvényekre. A fő fájlt a \textit{Visual Studio Code} Jupyter notebook kiegészítőjével futtattam.
 
 \section{Adatsor}
-A SOTE laboratóriumi méréseinek adatsorát használtam az algoritmusok teszteléséhez. Ebben nagy mennyiségű páciens vérkép adatai vannak anonimizáltan. 
+A SOTE laboratóriumi méréseinek adatsorát használtam az algoritmusok teszteléséhez. Ebben nagy mennyiségű páciens vérkép adatai vannak anonimizáltan.
 
 \subsection{Jellemzők}
 A felhasznált jellemzőket P. Fuster-Parra et al. \cite{fuster2016bayesian} szívrendszeri megbetegedési kutatásai nyomán választottam ki. Az általuk létrehozott Bayes-háló a \ref{fig:cardio-bayes} ábrán látható. Ebből az adatsorban a \emph{Gender, Age, HDL, Glucose, TG} szerepelnek rendre \emph{sex, age, HDLC, GLU, TG} néven. A paraméterek feloldása a \ref{tab:parameterek_jelentese} táblázatban szerepel. A HDL helyett a HDLC-t választottam, mindkettő a koleszterinszintet mutatja, de a HDLC-hez több adat kapcsolódott.
@@ -39,7 +39,7 @@ sex  & páciens neme &         \\
 age  & páciens életkora & 44.0 - 65.0\footnotemark\\
 HDLC & koleszterinszint & 0.9 - 1.5     \\
 TG   & trigliceridek szintje & 0.5 - 2.0 \\
-GLU  & vércukorszint    & 3.9 - 5.8    
+GLU  & vércukorszint    & 3.9 - 5.8
 \end{tabular}
 \caption{Paraméterek jelentése}
 \label{tab:parameterek_jelentese}
@@ -49,7 +49,7 @@ GLU  & vércukorszint    & 3.9 - 5.8
 Az eredetileg szívproblémák feltárására szánt paramétereket választottam, mert ehhez több kutatás kapcsolódik, amelyekben szakértők is segítettek a Bayes-hálók elkészítésében. Így az eredményekhez van összehasonlítási alap.
 
 \subsection{Előfeldolgozás}
-Az adatbázisban a mérések külön rekordonként szerepelnek. Így mindhárom laborparaméterre szűrést kellett végeznem. Az így kapott adatsorban egy pácienshez több mérés is társult ugyanarra a paraméterre. Ezekből az elsőt választottam mindenkinél. Ezután megkerestem azokat a pácienseket, akiknél mindhárom paraméterhez tartozott mérés, és az ő azonosítójuk alapján összeillesztettem a résztáblákat. Az illesztés típusa \emph{inner join} művelet volt, így a kapott táblában csak a mindhárom megmért paraméterrel rendelkezőek kerültek. 
+Az adatbázisban a mérések külön rekordonként szerepelnek. Így mindhárom laborparaméterre szűrést kellett végeznem. Az így kapott adatsorban egy pácienshez több mérés is társult ugyanarra a paraméterre. Ezekből az elsőt választottam mindenkinél. Ezután megkerestem azokat a pácienseket, akiknél mindhárom paraméterhez tartozott mérés, és az ő azonosítójuk alapján összeillesztettem a résztáblákat. Az illesztés típusa \emph{inner join} művelet volt, így a kapott táblában csak a mindhárom megmért paraméterrel rendelkezőek kerültek.
 
 A külön táblákban található HDLC: 177473, GLU: 269657, TGL: 264209 főből az illesztett táblába csak 119852 került. A szűk keresztmetszet a HDLC volt. Ezen mérések pácienseinek közel kétharmadához tartozott - ez alapján - mérés a másik két paraméterre is.
 

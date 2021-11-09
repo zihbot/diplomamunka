@@ -43,7 +43,7 @@ A \verb|MultivariateDiscretizer| osztályból az adatsorról sok adat kinyerhet�
 
 Ez a fejezet bemutatja a Diplomamunka részeként elkészült bediscretizer modul implementációját. Leírja, milyen elvárások, követelmények vannak a csomaggal szemben. Ismerteti a mérnöki döntéseket, amelyeket a csomag létrehozásakor kellett meghozni.
 
-A csomag Python nyelven írodott. Elsődleges célja, hogy egy robusztus többváltozós diszkretizációt hajtson végre a kapott adatsoron. A \verb|bediscretizer| név a "Bayesian Estimation based DISCRETIZER" rövidítése.
+A csomag python nyelven írodott. Elsődleges célja, hogy egy robusztus többváltozós diszkretizációt hajtson végre a kapott adatsoron. A \verb|bediscretizer| név a "Bayesian Estimation based DISCRETIZER" rövidítése.
 
 \section{Követelmények}
 A csomaggal szemben támasztott követelmények a FURPS modell \cite{grady1992practical} szerint vannak csoportosítva. Ez egy angol betűszó, amely a csoportok neveinek kezdőbetűiből lett összerakva. Ezek alapján a program különböző szempontokból vizsgálható. A szempontok: funkcionalitás (\textbf{F}unctionality), használhatóság (\textbf{U}sability), Megbízhatóság (\textbf{R}eliability), teljesítmény (\textbf{P}erformance) és a támogatottság (\textbf{S}upportability). Egy alkalmazás készítése során ezekre a szempontokra figyelve jobb minőségű végeredmény érhető el, mintha kizárólag a megfelelő működés a cél.
@@ -53,8 +53,21 @@ A működés során az elvégzendő feladatokat, a rendszer képességeit, bizto
 
 \begin{enumerate}
     \descitem{Bemenet} Fogadjon el numpy.ndarray típusú objektumot, amely az adatokat tartalmazza.
-    \descitem{Kimenet} Legyen egy betanított Bayes-háló, amely a kapott adatok közötti kapcsolatokat reprezentálja
-    \descitem{Algoritmus} Valósítja meg a \autoref{chapter:bayesdontesalapu} fejezetben ismertetett Bayes-döntés alapú diszkretizációs eljárást
+    \descitem{Kimenet} Legyen egy betanított Bayes-háló, amely a kapott adatok közötti kapcsolatokat reprezentálja.
+    \descitem{Algoritmus} Valósítja meg a \autoref{chapter:bayesdontesalapu} fejezetben ismertetett Bayes-döntés alapú diszkretizációs eljárást.
+    \descitem{Felügyelet nélküli tanulás} Ne várjon címkézett adatokat, kizárólag a bemenet változói közötti összefüggéseket ismerje fel.
+    \descitem{Automatikus adattípus} Ismerje fel a diszkrét és folytonos változókat a bemeneti adatsorban, és kezelje ennek megfelelően.
+    \descitem{Konfigurálhatóság} A kezdeti konfiguráció megadható legyen, ilyenkor ne végezzen automatikus felismeréseket.
 \end{enumerate}
 
-A tanulás történjen felügyelet nélkül. A végeredménye egy betanított Bayes-háló legyen.
+\subsection{Használhatósági követelmények}
+A felhasználói élmény javítását célozza, az emberi tényezők figyelembe vételére törekszik.
+
+\begin{enumerate}[resume]
+    \descitem{Felhasználók} A csomagot arra kell felkészíteni, hogy fejlesztők és adattudósok használhassák.
+    \descitem{Bemeneti típusok} Legyen megadva a \textit{typing} modul segítségével a kezelt típusok. A python gyengén típusos nyelv, ezért ezt a nyelv nem kényszeríti ki, ám a fejlesztői környezetek felismerik és támogatják a típusokat, ezzel segítve a felhasználót.
+    \descitem{Logolás} Támogassa a \textit{logging} modult. A logoló beállításait tartsa be és rögzítse a logban a folyamat lépéseit. A kezelt problémákat is jegyezze fel.
+    \descitem{Robuszusság - bemenet} Ismerje fel a nem megfelelő bemenetet, és kezelje akár kivételt dobva.
+    \descitem{Robuszusság - futás} Algoritmus futása közben fellépő kivételeket kezelje. A helytelen eredmény felismerése nem lehetséges, ezért ez nem is cél.
+    \descitem{Ismert metódusok} Hasonlítson kiajánlott metódusok neve és működése a \textit{scikit-learn} csomag algoritmusaihoz. Ezzel segítve a felhasználók könnyebb alkalmazkodását.
+\end{enumerate}
