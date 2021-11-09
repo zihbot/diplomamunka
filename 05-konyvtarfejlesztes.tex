@@ -46,5 +46,15 @@ Ez a fejezet bemutatja a Diplomamunka részeként elkészült bediscretizer modu
 A csomag Python nyelven írodott. Elsődleges célja, hogy egy robusztus többváltozós diszkretizációt hajtson végre a kapott adatsoron. A \verb|bediscretizer| név a "Bayesian Estimation based DISCRETIZER" rövidítése.
 
 \section{Követelmények}
-A csomaggal szemben támasztott követelmények a FURPS modell \cite{grady1992practical} szerint vannak csoportosítva.
+A csomaggal szemben támasztott követelmények a FURPS modell \cite{grady1992practical} szerint vannak csoportosítva. Ez egy angol betűszó, amely a csoportok neveinek kezdőbetűiből lett összerakva. Ezek alapján a program különböző szempontokból vizsgálható. A szempontok: funkcionalitás (\textbf{F}unctionality), használhatóság (\textbf{U}sability), Megbízhatóság (\textbf{R}eliability), teljesítmény (\textbf{P}erformance) és a támogatottság (\textbf{S}upportability). Egy alkalmazás készítése során ezekre a szempontokra figyelve jobb minőségű végeredmény érhető el, mintha kizárólag a megfelelő működés a cél.
+
+\subsection{Funkcionális követelmények}
+A működés során az elvégzendő feladatokat, a rendszer képességeit, biztonsági kérdéseket válaszolja meg.
+
+\begin{enumerate}
+    \descitem{Bemenet} Fogadjon el numpy.ndarray típusú objektumot, amely az adatokat tartalmazza.
+    \descitem{Kimenet} Legyen egy betanított Bayes-háló, amely a kapott adatok közötti kapcsolatokat reprezentálja
+    \descitem{Algoritmus} Valósítja meg a \autoref{chapter:bayesdontesalapu} fejezetben ismertetett Bayes-döntés alapú diszkretizációs eljárást
+\end{enumerate}
+
 A tanulás történjen felügyelet nélkül. A végeredménye egy betanított Bayes-háló legyen.
