@@ -46,7 +46,7 @@ Ez a fejezet bemutatja a Diplomamunka részeként elkészült bediscretizer modu
 A csomag python nyelven írodott. Elsődleges célja, hogy egy robusztus többváltozós diszkretizációt hajtson végre a kapott adatsoron. A \verb|bediscretizer| név a "Bayesian Estimation based DISCRETIZER" rövidítése.
 
 \section{Követelmények}
-A csomaggal szemben támasztott követelmények a FURPS modell \cite{grady1992practical} szerint vannak csoportosítva. Ez egy angol betűszó, amely a csoportok neveinek kezdőbetűiből lett összerakva. Ezek alapján a program különböző szempontokból vizsgálható. A szempontok: funkcionalitás (\textbf{F}unctionality), használhatóság (\textbf{U}sability), Megbízhatóság (\textbf{R}eliability), teljesítmény (\textbf{P}erformance) és a támogatottság (\textbf{S}upportability). Egy alkalmazás készítése során ezekre a szempontokra figyelve jobb minőségű végeredmény érhető el, mintha kizárólag a megfelelő működés a cél.
+A csomaggal szemben támasztott követelmények a FURPS modell \cite{grady1992practical} szerint vannak csoportosítva. Ez egy angol betűszó, amely a csoportok neveinek kezdőbetűiből lett összerakva. Ezek alapján a program különböző szempontokból vizsgálható. A szempontok: funkcionalitás (\textbf{F}unctionality), használhatóság (\textbf{U}sability), megbízhatóság (\textbf{R}eliability), teljesítmény (\textbf{P}erformance) és a támogatottság (\textbf{S}upportability). Egy alkalmazás készítése során ezekre a szempontokra figyelve jobb minőségű végeredmény érhető el, mintha kizárólag a megfelelő működés a cél.
 
 \subsection{Funkcionális követelmények}
 A működés során az elvégzendő feladatokat, a rendszer képességeit, biztonsági kérdéseket válaszolja meg.
@@ -70,4 +70,32 @@ A felhasználói élmény javítását célozza, az emberi tényezők figyelembe
     \descitem{Robuszusság - bemenet} Ismerje fel a nem megfelelő bemenetet, és kezelje akár kivételt dobva.
     \descitem{Robuszusság - futás} Algoritmus futása közben fellépő kivételeket kezelje. A helytelen eredmény felismerése nem lehetséges, ezért ez nem is cél.
     \descitem{Ismert metódusok} Hasonlítson kiajánlott metódusok neve és működése a \textit{scikit-learn} csomag algoritmusaihoz. Ezzel segítve a felhasználók könnyebb alkalmazkodását.
+    \descitem{Nyílt forráskód} Az implementáció legyen elérhető bárki számára.
+\end{enumerate}
+
+\subsection{Megbízhatósági követelmények}
+A hibalehetőségek száma, gyakorisága és azok kezelésének lehetőségeit fogalmazza meg.
+
+\begin{enumerate}[resume]
+    \descitem{Belső hibák} A belső hibákat kapja el, logolja és csak saját hibákat dobjon. Ezzel elérhető, hogy a helyben kezelhető hibák ne okozzák az alkalmazás futásának a végét.
+    \descitem{Determináltság} A futtatott algoritmus determinisztikus. Legyen teszt, amely ellenőrzi, hogy ugyanarra a bemenetre ugyanazt az eredményt adja.
+    \descitem{Diszkretizáció hiba} A diszkretizáció során fellépő hibát kezelje úgy, hogy az eredeti diszkretizációt megtartja.
+\end{enumerate}
+
+\subsection{Teljesítmény követelmények}
+A futási sebességet, hatékonyságot, pontosságot határozza meg
+
+\begin{enumerate}[resume]
+    \descitem{Dinamikus programozás} Használja ki, hogy az algoritmusban használt \textit{H} mátrix értéke dinamikus programozással megoldható
+    \descitem{Futásidő - referencia} A futásidő legyen a tanulmányban szereplő \textit{Julia} implementációnál rövidebb ugyanarra a bemenetre.
+    \descitem{Futásidő - bemenet} A bemeneti adatpontok számának függvényében $O(n^2)$ legyen.
+\end{enumerate}
+
+\subsection{Támogatottsági követelmények}
+    Tesztelhetőségi, konfiurálhatósági, bővítési lehetőségekre ír le igényeket.
+
+\begin{enumerate}[resume]
+    \descitem{Egység teszt} Az algoritmus implementációjához és a használt segédfüggvényekhez legyenek működést ellenőrző tesztek.
+    \descitem{Beállítható változó típus} Legyen megadható a bemeneti változók típusa (folyatonos és diszkrét)
+    \descitem{Beállítható kezdeti diszkretizáció} Lehessen megadni kezdeti diszkretizációt, vagy kiválasztani az ezt létrehozó algoritmust.
 \end{enumerate}
