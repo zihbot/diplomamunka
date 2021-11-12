@@ -6,6 +6,9 @@
 	],
 	"settings": {
 		"latex-workshop.latex.outDir": "%DIR%/out",
-		"editor.wordWrap": "on"
+		"editor.wordWrap": "on",
+		"plantuml.exportFormat": "png",
+		"plantuml.exportOutDir": "figures",
+		"plantuml.diagramsRoot": "diagrams"
 	}
 }

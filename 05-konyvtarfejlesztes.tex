@@ -111,3 +111,15 @@ A csomag a \textit{MultivariateDiscretizer.py} modul köré épül. Megvalósít
 
 A fő modul, amely az algoritmust végrehajtó osztályt tartalmazza a \textbf{MultivariateDiscretizer}. Ebben található az azonos nevű osztály, mely példányosításkor várja az adatsort, melyből automatikusan képes beállítani a konfigurációját, valamint egyéb konfigurációs paraméterek is megadhatók. Ezen az elven működnek a \textit{scikit-learn} csomag implementációi is. A tanulás megkezdéséhez a \textit{fit} metódust kell meghívni, ez szintén azonos a hasonló csomagok használatával. Azért szükséges külön bontani az inicializálást és a tanulást, mert így mérhető a sebességük külön-külön is a felhasználó számára.
 
+A Bayes-döntés alapú diszkretizációs eljárás implementációja a \textbf{discretization} modulban szerepel. Azért szerepel külön, mert így könnyen tesztelhető fejlesztés közben, hiszen futtatható a fájl önmagában is. Emellett több implementációt is vizsgáltam, és itt ezek együtt szerepelhetnek.
+
+Egyéb segédfüggvényeket tartalmaz a \textbf{util} modul. Ezek nem szorosan kapcsolódnak az eljáráshoz, egyéb esetekben is hasznosak lehetnek, így ki lettek szervezve egy külön modulba. Ennek az előnye, hogy könnyen írható ezekre teszteset, hiszen a bemeneti paramétereik alapján determinisztikusak. A \textit{MultivariateDiscretizer} metódusai az osztályváltozókat is használják, így ezek teszteléséhez példányosítani kell az objektumot.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=6cm]{figures/app/structure.png}
+    \caption{A rendszer felépítése}
+    \label{fig:struktura-diagram}
+\end{figure}
+
+% TODO: tesztelési környezet hozzáadása

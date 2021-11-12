@@ -1,0 +1,11 @@
+@startuml structure
+scale 3
+
+[MultivariateDiscretizer] as main
+[discretization] as disc
+[util] as util
+
+main --> disc
+main --> util
+
+@enduml
