@@ -22,7 +22,7 @@
 \usepackage[magyar]{babel}
 \usepackage{csquotes}
 \usepackage{sectsty}
-\usepackage{setspace}  % Ettol a tablazatok, abrak, labjegyzetek maradnak 1-es sorkozzel!
+\usepackage{setspace}  % Ettől a táblázatok, abrak, lábjegyzetek maradnak 1-es sorközzel!
 \usepackage[hang]{caption}
 \usepackage{listings}
 \usepackage{xcolor}
@@ -52,18 +52,18 @@ sorting=nyt
 %--------------------------------------------------------------------------------------
 % Page layout setup
 %--------------------------------------------------------------------------------------
-% we need to redefine the pagestyle plain
+% we need to redefine the page style plain
 % another possibility is to use the body of this command without \fancypagestyle
 % and use \pagestyle{fancy} but in that case the special pages
 % (like the ToC, the References, and the Chapter pages)remain in plane style
 
 \pagestyle{plain}
-%\setlength{\parindent}{0pt} % áttekinthetőbb, angol nyelvû dokumentumokban jellemzõ
-%\setlength{\parskip}{8pt plus 3pt minus 3pt} % áttekinthetõbb, angol nyelvû dokumentumokban jellemzõ
-\setlength{\parindent}{12pt} % magyar nyelvû dokumentumokban jellemzõ
-\setlength{\parskip}{0pt}    % magyar nyelvû dokumentumokban jellemzõ
+%\setlength{\parindent}{0pt} % áttekinthetőbb, angol nyelvű dokumentumokban jellemző
+%\setlength{\parskip}{8pt plus 3pt minus 3pt} % áttekinthetőbb, angol nyelvű dokumentumokban jellemző
+\setlength{\parindent}{12pt} % magyar nyelvű dokumentumokban jellemző
+\setlength{\parskip}{0pt}    % magyar nyelvű dokumentumokban jellemző
 
-\marginsize{35mm}{25mm}{15mm}{15mm} % anysize package
+\marginsize{35mm}{25mm}{15mm}{15mm} % any size package
 \setcounter{secnumdepth}{0}
 \sectionfont{\large\upshape\bfseries}
 \setcounter{secnumdepth}{2}
@@ -155,11 +155,11 @@ aboveskip=10pt}
 \include{02-valoszinusegelmelet}
 %Valószínűségelmélet - Bayes-tétel, Bayes-döntés, Bayes-háló, A-priori, posterior becslés
 \include{03-jelenlegimodszerek}
-%Diszkretizáció stastisztikai módszerei - Egyváltozós, többváltozós
+%Diszkretizáció statisztikai módszerei - Egy változós, többváltozós
 \include{04-bayesdontesalapu}
 %Implementáció, dokumentáció
 \include{05-konyvtarfejlesztes}
-%Tesztelés szintetikus adatokon - képek a bemeneti adatokhoz, implementálás
+%Tesztelés szintetikus adatokon - képek a bemeneti adatokhoz, összehasonlítás más algoritmusokkal, sebesség mérés
 %%Tesztelés valós adatokon
 %Értékelés
 %Összefoglalás
