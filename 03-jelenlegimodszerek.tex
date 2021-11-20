@@ -1,16 +1,46 @@
 %----------------------------------------------------------------------------
-\chapter{Diszkretizáció statisztikai módszerei}
+\chapter{Jelenlegi módszerei}
 %----------------------------------------------------------------------------
 
 Az előző fejezetben leírt Bayes-hálók csomópontjai folytonos és diszkrét valószínűségi változók is lehetnek. Az automatizált struktúra tanulás során azonban az élek feltételes valószínűségi táblákként adódnak, ezek az algoritmusok csak diszkrét valószínűségi változókkal tudnak dolgozni. Ezért szükséges, hogy a bemeneti folytonos változók a struktúra tanulás előtt diszkretizálva legyenek.
 
-\section{Egy változós diszkretizáció}
+Ez a fejezet bemutatja a diszkretizáció jelenlegi statisztikai módszereit. Példákat mutat az egyszerűbbek használatára és működésére. Emellett a jelenlegi Bayes-háló struktúra tanulási módszereket is leírja.
+
+\section{Egyváltozós diszkretizáció}
 A diszkretizációhoz az egyszerűbb megoldás, hogy minden változó a többitől függetlenül kerül diszkretizálásra. Az adatsor változatlansága esetén a változó diszkretizációja konstans marad.
 
-A diszkretizációs intervallumok számának meghatározására több lehetőség van. Meghatározható egy konstans. Ezt szakértőre kell bízni, vagy egy viszonylag kicsi - de legalább 2 - számot választani, amihez emberi beavatkozásra van szükség. Dinamikusan meghatározható, kiválasztható az eredeti adatsor diszkrét változóit vizsgálva a legnagyobb kardinalitás.
+A diszkretizációs intervallumok számának meghatározására több lehetőség van. Meghatározható egy konstans. Ezt szakértőre kell bízni, vagy egy viszonylag kicsi - de legalább 2 - számot választani, amihez emberi beavatkozásra van szükség. Dinamikusan is meghatározható. Ilyenkor az eredeti adatsor diszkrét változói közül a legnagyobb kardinalitású kiválasztható. Ezt a számosság értéket választjuk az intervallumok számának.
+
+\begin{table}[h]\centering
+    \begin{tabular}{ccc}
+    A & B    & C    \\ \hline
+    2 & 4.28 & 0.51 \\
+    1 & 2.58 & 0.95 \\
+    0 & 3.37 & 0.35 \\
+    0 & 3.06 & 0.32 \\
+    1 & 3.67 & 1.59 \\
+    2 & 3.70 & 1.27 \\
+    2 & 2.78 & 1.32 \\
+    1 & 4.23 & 0.52 \\
+    2 & 4.80 & 0.71 \\
+    2 & 1.90 & 1.88
+    \end{tabular}
+    \caption{Véletlenszerűen generált adatpontok diszkretizációs példák bemutatásához}
+    \label{tab:diszkretizacio-pelda}
+\end{table}
+
+Tekintsük a \ref{tab:diszkretizacio-pelda} táblázat adatait. Ebben az esetben az \emph{A} változó diszkrét a \emph{B} és a \emph{C} változók folytonosak. A diszkrét változó értékei $\left\{ 0, 1, 2 \right\}$, így a kardinalitása \emph{3}. Ezért a példákban három intervallumra lesznek a folytonos változók osztva.
+
+Az intervallumok többféle módon is megadhatók. Szövegesen leírható például így: a \emph{C} változó adatsorát az 1-nél nagyobb és nemnagyobb értékekre bontjuk. Ez matematikai jelölésekkel felírható a $\Lambda_{C} = \left\{ \interval[open left]{-\inf}{1}, \interval[open]{1}{\inf} \right\} $ módon, így $\Lambda$ jelöli az adatsor összes diszkretizációs intervallumának halmazát, az alsó index mutatja, mely változóhoz tartozik. Mivel minden pontot valamelyik intervallum tartalmazni fogja, ezért egy listában növekvő sorrendben elég megadni a határokat. Ráadásul a minimum és maximum érték is ismert, így ezek használhatók a $\inf$ szimbólum helyett. Ezen a módon a $\Lambda_{C} = \langle 0.32, 1, 1.88 \rangle$. Ez a diszkretizációs sorozat \cite{friedman1996discretizing}. Függvény formában is leírható, ilyenkor
+$f_{\Lambda_{C}}(x) = \left\{ \begin{array}{ll}
+    0 & \mbox{ha } x \leq 1 \\
+    1 & \mbox{ga } x > 1
+\end{array} \right.$. Növekvő sorrendbe rendezett értékek esetén az intervallum utolsó elemének pozíciója is egyértelműen megadja a határt. A példában 6 db 1-nél nemnagyobb érték van, így $e_{C} = \langle 6 \rangle$.
 
 \subsection{Egyenlő hosszú intervallumok}
-A vizsgált változó értékkészletének tartománya felosztható az elvárt kardinalitásnak megfelelő, egyenlő hosszúságú intervallumra. Ennek kiszámolásához csak egy maximum és minimum keresésre van szükség, így rendkívül gyors és egyszerű. A diszkretizált értékek ilyenkor az eredeti értékek hisztogramján mutatják, hogy az adott érték melyik vödörbe került. Kiugró értékek esetén előfordulhat, hogy az egyes intervallumokba nagyon különböző számú adatpont esik, így a sok adatpontot tartalmazó intervallumokban az adatpontok közötti eltérések könnyen elvesznek, nem tanulható meg a Bayes-háló által.
+A vizsgált változó értékkészletének tartománya felosztható az elvárt kardinalitásnak megfelelő, egyenlő hosszúságú intervallumra. Ennek kiszámolásához csak egy maximum és minimum keresésre van szükség, így rendkívül gyors és egyszerű. A diszkretizált értékek ilyenkor az eredeti értékek hisztogramján mutatják, hogy az adott érték melyik vödörbe került. Kiugró értékek esetén előfordulhat, hogy az egyes intervallumokba nagyon különböző számú adatpont esik, így a sok adatpontot tartalmazó intervallumokban az adatpontok közötti eltérések könnyen elvesznek, nem tanulható meg a Bayes-háló által. Ezért ezt a típusú felosztást egyenletes eloszlást közelítő adatsorokon érdemes használni, hogy ne legyen kevés adatpontot tartalmazó intervallum.
+
+A példa ese
 
 \subsection{Egyenlő mintaszámú intervallumok}
 A minták növekvő sorrendjében minden "N / elvárt kardinalitás" pozícióba egy diszkretizációs intervallum határ kerül. Az előző példánál maradva itt minden változó értékhez a hisztogram-kiegyenlítés után őt tartalmazó vödör számát rendeljük.
@@ -21,14 +51,14 @@ Amennyiben az adott statisztikai változóról több információ áll rendelkez
 Ilyen lehet a laboratóriumi paraméterek \cite{katayev2010establishing} diszkretizálása, amely a jelenlegi gyakorlatot ülteti át algoritmikus formába. A mostani, erre a célra gyűjtött adatok helyett nagy mennyiségű, más mérési céllal készült statisztikai adatokkal határozza meg a referencia tartományt.
 
 \section{Többváltozós diszkretizáció}
-Az egy változós diszkretizáció egyszerűségéből adódik a hátránya is. A Bayes-hálóra azért van szükség, mert a változók között vannak összefüggések. Amikor egy-egy változó diszkretizációja izoláltan történik, a tartalmazott információ mennyisége csökken, és ez torzítja az összefüggéseket. Ezért a függő változók diszkretizációja során érdemes lehet figyelembe venni a kapcsolatokat, így az azokból származó információ kevésbé veszik el.
+Az egyváltozós diszkretizáció egyszerűségéből adódik a hátránya is. A Bayes-hálóra azért van szükség, mert a változók között vannak összefüggések. Amikor egy-egy változó diszkretizációja izoláltan történik, a tartalmazott információ mennyisége csökken, és ez torzítja az összefüggéseket. Ezért a függő változók diszkretizációja során érdemes lehet figyelembe venni a kapcsolatokat, így az azokból származó információ kevésbé veszik el.
 
 \subsection{Minimális hosszúságú leírás elve alapján}
 A minimális hosszúságú leírás elve (MDL) azt mondja ki, hogy egy adathalmaz legjobb modellje az, amelyik minimalizálja a leírásához szükséges információ mennyiségét \cite{friedman1996discretizing}.
 
 Az információ sűrűségének jellemzésére megfelelő mutató az (információ) entrópia. Így a feladatot megfogalmazhatjuk úgy is, hogy minimalizálandó a diszkretizációs elv szerint a modell entrópiája.
 
-%képletek Friedmantól
+% TODO: képletek Friedmantól
 
 Ennek megoldása $O(n^3)$ időben futtatható, ahol az $n$ a tanító adatok száma.
 
@@ -41,4 +71,6 @@ ahol $\Lambda$ a diszkretizációs elv, $D$ az adat.
 Az \textit{a posteriori} becslés esetén a prior megfelelő megválasztása kulcsfontosságú. A könnyebb programozhatóság kedvéért a valószínűség helyett annak negatív logaritmáltját érdemes minimalizálni. Mivel a logaritmus szigorúan monoton növekvő függvény, ez nem változtat az eredményen, de a lebegőpontos számábrázolás miatt pontosabban számolható számítógépen.
 
 Mivel megoldható a feladat dinamikus programozással (lehet építeni a korábban kiszámolt valószínűségekre), így az futásidő $O(n^2)$-re csökken, ahol $n$ a tanító adatok száma.
+
+\section{Diszkretizációs módszerek}
 
