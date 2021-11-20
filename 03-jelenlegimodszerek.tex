@@ -31,7 +31,7 @@ A diszkretizációs intervallumok számának meghatározására több lehetősé
 
 Tekintsük a \ref{tab:diszkretizacio-pelda} táblázat adatait. Ebben az esetben az \emph{A} változó diszkrét a \emph{B} és a \emph{C} változók folytonosak. A diszkrét változó értékei $\left\{ 0, 1, 2 \right\}$, így a kardinalitása \emph{3}. Ezért a példákban három intervallumra lesznek a folytonos változók osztva.
 
-Az intervallumok többféle módon is megadhatók. Szövegesen leírható például így: a \emph{C} változó adatsorát az 1-nél nagyobb és nemnagyobb értékekre bontjuk. Ez matematikai jelölésekkel felírható a $\Lambda_{C} = \left\{ \interval[open left]{-\inf}{1}, \interval[open]{1}{\inf} \right\} $ módon, így $\Lambda$ jelöli az adatsor összes diszkretizációs intervallumának halmazát, az alsó index mutatja, mely változóhoz tartozik. Mivel minden pontot valamelyik intervallum tartalmazni fogja, ezért egy listában növekvő sorrendben elég megadni a határokat. Ráadásul a minimum és maximum érték is ismert, így ezek használhatók a $\inf$ szimbólum helyett. Ezen a módon a $\Lambda_{C} = \langle 0.32, 1, 1.88 \rangle$. Ez a diszkretizációs sorozat \cite{friedman1996discretizing}. Függvény formában is leírható, ilyenkor
+Az intervallumok többféle módon is megadhatók. Szövegesen leírható például így: a \emph{C} változó adatsorát az 1-nél nagyobb és nemnagyobb értékekre bontjuk. Ez matematikai jelölésekkel felírható a $\Lambda_{C} = \left\{ \interval[open left]{-\inf}{1}, \interval[open]{1}{\inf} \right\} $ módon, így $\Lambda$ jelöli az adatsor összes diszkretizációs intervallumának halmazát, az alsó index mutatja, mely változóhoz tartozik. Mivel minden pontot valamelyik intervallum tartalmazni fogja, ezért egy listában növekvő sorrendben elég megadni a határokat. Ráadásul a minimum és maximum érték is ismert, így ezek használhatók a $\inf$ szimbólum helyett vagy el is hagyhatók. Ezen a módon a $\Lambda_{C} = \langle 0.32, 1, 1.88 \rangle$. Ez a diszkretizációs sorozat \cite{friedman1996discretizing}. Függvény formában is leírható, ilyenkor
 $f_{\Lambda_{C}}(x) = \left\{ \begin{array}{ll}
     0 & \mbox{ha } x \leq 1 \\
     1 & \mbox{ga } x > 1
@@ -40,10 +40,14 @@ $f_{\Lambda_{C}}(x) = \left\{ \begin{array}{ll}
 \subsection{Egyenlő hosszú intervallumok}
 A vizsgált változó értékkészletének tartománya felosztható az elvárt kardinalitásnak megfelelő, egyenlő hosszúságú intervallumra. Ennek kiszámolásához csak egy maximum és minimum keresésre van szükség, így rendkívül gyors és egyszerű. A diszkretizált értékek ilyenkor az eredeti értékek hisztogramján mutatják, hogy az adott érték melyik vödörbe került. Kiugró értékek esetén előfordulhat, hogy az egyes intervallumokba nagyon különböző számú adatpont esik, így a sok adatpontot tartalmazó intervallumokban az adatpontok közötti eltérések könnyen elvesznek, nem tanulható meg a Bayes-háló által. Ezért ezt a típusú felosztást egyenletes eloszlást közelítő adatsorokon érdemes használni, hogy ne legyen kevés adatpontot tartalmazó intervallum.
 
-A példa ese
+A példa esetében a legnagyobb folytonos értékek $\max \mathcal{X}_{B} = 4.8, \max \mathcal{X}_{C} = 1.88$, a legkisebb értékek pedig $\min \mathcal{X}_{B} = 1.9, \min \mathcal{X}_{C} = 0.32$. Három intervallumra kell osztani az értékeket, ezt jelölje $L=3$. Az \emph{i.} határ egyszerűen megkapható ($1 \leq i < L$):
+$$ \Lambda_{V, i} = \frac{\max \mathcal{X}_{V} - \min \mathcal{X}_{V}}{L} \cdot i + \min \mathcal{X}_{V} $$
+Így a példában a határok $\Lambda_{B} = \langle 2.92, 3.69 \rangle$ és  $\Lambda_{C} = \langle 0.84, 1.36 \rangle$.
 
 \subsection{Egyenlő mintaszámú intervallumok}
-A minták növekvő sorrendjében minden "N / elvárt kardinalitás" pozícióba egy diszkretizációs intervallum határ kerül. Az előző példánál maradva itt minden változó értékhez a hisztogram-kiegyenlítés után őt tartalmazó vödör számát rendeljük.
+A minták növekvő sorrendjében minden $N / L$. pozícióban található érték számít az intervallum határának. Ha az így számolt pozíció nem lenne egész szám, a kapott értéket le- és felkerekítve választjuk ki a pozíciókat. A következő pozíciót a felkerekítettől indulva választjuk ki. Ezeken a helyeken szereplő értékek átlaga adja az intervallum határát. Hisztogramról leolvasható, mert L felbontású hisztogramon az adatponthoz az azt tartalmazó vödör sorszáma rendelhető. Egyenlő kvantilisű vagy egyenlő frekvenciájú intervallumoknak is nevezhetők.
+
+A példában 10 minta szerepel, ezeket kell 3 intervallumban elhelyezni. Ezért az adott változó szerint sorbarendezett mintákban a 3.33 és 7.33 pozícióban levő értéket keressük. Tehát a 3. és 4. valamint 7. és 8. helyen levő értékeket átlagoljuk. Esetünkben így ezek a határok $\Lambda_{B} = \langle 2.87, 3.97 \rangle$ és  $\Lambda_{C} = \langle 0.515, 1.3 \rangle$.
 
 \subsection{Tárgyterület-függő diszkretizáció}
 Amennyiben az adott statisztikai változóról több információ áll rendelkezésre, készíthető speciális, az adott tárgyterülethez kapcsolódó diszkretizáció.
