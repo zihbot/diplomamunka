@@ -50,17 +50,17 @@ A minták növekvő sorrendjében minden $N / L$. pozícióban található ért�
 A példában 10 minta szerepel, ezeket kell 3 intervallumban elhelyezni. Ezért az adott változó szerint sorbarendezett mintákban a 3.33 és 7.33 pozícióban levő értéket keressük. Tehát a 3. és 4. valamint 7. és 8. helyen levő értékeket átlagoljuk. Esetünkben így ezek a határok $\Lambda_{B} = \langle 2.87, 3.97 \rangle$ és  $\Lambda_{C} = \langle 0.515, 1.3 \rangle$.
 
 \subsection{Nyomaték párosítás}
-A határokat $\langle e_{1}, e_{2}, \dots, e_{L-1}\rangle$ formában keressük, melynek a diszkrét eloszlását a $\langle p_{1}, p_{2}, \dots, p_{L-1}\rangle$ valószínűségek adják meg, és teljesítik a következő feltételeket \cite{nojavan2017comparative}:
+A diszkretizált értékeket $\langle d_{1}, d_{2}, \dots, d_{L-1}\rangle$ formában keressük, melynek a diszkrét eloszlását a $\langle p_{1}, p_{2}, \dots, p_{L-1}\rangle$ valószínűségek adják meg, és teljesítik a következő feltételeket \cite{nojavan2017comparative}:
 \begin{align}
-    p_{1}e_{1} + p_{2}e_{2} + \dots + p_{L-1}e_{L-1} &= q x_{1} + q x_{2} + \dots + q x_{N} = m \\
-    p_{1}(e_{1} - m)^{2} + \dots + p_{L-1}(e_{L-1} - m)^{2} &= q(x_{1} - m)^{2} + \dots + q(x_{N} - m)^{2} \\
-    p_{1}(e_{1} - m)^{2L-1} + \dots + p_{L-1}(e_{L-1} - m)^{2L-1} &= q(x_{1} - m)^{2L-1} + \dots + q(x_{N} - m)^{2L-1} \\
+    p_{1}d_{1} + p_{2}d_{2} + \dots + p_{L-1}d_{L-1} &= q x_{1} + q x_{2} + \dots + q x_{N} = m \\
+    p_{1}(d_{1} - m)^{2} + \dots + p_{L-1}(d_{L-1} - m)^{2} &= q(x_{1} - m)^{2} + \dots + q(x_{N} - m)^{2} \\
+    p_{1}(d_{1} - m)^{2L-1} + \dots + p_{L-1}(d_{L-1} - m)^{2L-1} &= q(x_{1} - m)^{2L-1} + \dots + q(x_{N} - m)^{2L-1} \\
     p_{1} + p_{2} + \dots + p_{L-1} &= 1 \\
     q &= \frac{1}{N}
 \end{align}
-ahol \emph{e} a folytonos változó értékei, \emph{N} a számosságuk. Az \emph{m} került bevezetésre az adatsor átlagának jelölésére, a \emph{q} pedig az adatsor normalizálására.
+ahol \emph{x} a folytonos változó értékei, \emph{N} a számosságuk. Az \emph{m} került bevezetésre az adatsor átlagának jelölésére, a \emph{q} pedig az adatsort normalizáló tényező.
 
-A fenti egyenleteket teljesítő határpontok minden rendbeli nyomatéka a megegyezik az eredeti adatsor adott nyomatékával. A határpontok számának növelésével növekszik az egyenletek száma és komplexitása. Az egyenletrendszert numerikusan is nehéz megoldani, mert nem konvex probléma, így az összes lehetséges értéken kell keresést végezni. A lehetséges értékek pedig a $ \mathbb{R}^{L-1} $ halmazban vannak. Lehetséges csak egy bizonyos pontosságig végezni a keresést és a minimum és maximum közé szorítani, így véges számú értéket kell kipróbálni. Ám az intervallumok számával exponenciálisan növekszik ezek száma, így könnyen végrehajthatatlanná válik.
+A diszkretizáció elvégzése után az új eloszlás minden rendbeli nyomatéka a megegyezik az eredeti adatsor adott nyomatékával. A határpontok számának növelésével növekszik az egyenletek száma és komplexitása. Az egyenletrendszert numerikusan is nehéz megoldani, mert nem konvex probléma, így az összes lehetséges értéken kell keresést végezni. A lehetséges értékek pedig a $ \mathbb{R}^{L-1} $ halmazban vannak. Lehetséges csak egy bizonyos pontosságig végezni a keresést és a minimum és maximum közé szorítani, így véges számú értéket kell kipróbálni. Ám az intervallumok számával exponenciálisan növekszik a lehetséges értékek száma, így könnyen végrehajthatatlanná válik.
 
 \subsection{Tárgyterület-függő diszkretizáció}
 Amennyiben az adott statisztikai változóról több információ áll rendelkezésre, készíthető speciális, az adott tárgyterülethez kapcsolódó diszkretizáció.
