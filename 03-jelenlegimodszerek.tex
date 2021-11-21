@@ -29,7 +29,7 @@ A diszkretizációs intervallumok számának meghatározására több lehetősé
     \label{tab:diszkretizacio-pelda}
 \end{table}
 
-Tekintsük a \ref{tab:diszkretizacio-pelda} táblázat adatait. Ebben az esetben az \emph{A} változó diszkrét a \emph{B} és a \emph{C} változók folytonosak. A diszkrét változó értékei $\left\{ 0, 1, 2 \right\}$, így a kardinalitása \emph{3}. Ezért a példákban három intervallumra lesznek a folytonos változók osztva.
+Tekintsük a \ref{tab:diszkretizacio-pelda}. táblázat adatait. Ebben az esetben az \emph{A} változó diszkrét a \emph{B} és a \emph{C} változók folytonosak. A diszkrét változó értékei $\left\{ 0, 1, 2 \right\}$, így a kardinalitása \emph{3}. Ezért a példákban három intervallumra lesznek a folytonos változók osztva.
 
 Az intervallumok többféle módon is megadhatók. Szövegesen leírható például így: a \emph{C} változó adatsorát az 1-nél nagyobb és nemnagyobb értékekre bontjuk. Ez matematikai jelölésekkel felírható a $\Lambda_{C} = \left\{ \interval[open left]{-\inf}{1}, \interval[open]{1}{\inf} \right\} $ módon, így $\Lambda$ jelöli az adatsor összes diszkretizációs intervallumának halmazát, az alsó index mutatja, mely változóhoz tartozik. Mivel minden pontot valamelyik intervallum tartalmazni fogja, ezért egy listában növekvő sorrendben elég megadni a határokat. Ráadásul a minimum és maximum érték is ismert, így ezek használhatók a $\inf$ szimbólum helyett vagy el is hagyhatók. Ezen a módon a $\Lambda_{C} = \langle 0.32, 1, 1.88 \rangle$. Ez a diszkretizációs sorozat \cite{friedman1996discretizing}. Függvény formában is leírható, ilyenkor
 $f_{\Lambda_{C}}(x) = \left\{ \begin{array}{ll}
@@ -45,9 +45,9 @@ $$ \Lambda_{V, i} = \frac{\max \mathcal{X}_{V} - \min \mathcal{X}_{V}}{L} \cdot 
 Így a példában a határok $\Lambda_{B} = \langle 2.92, 3.69 \rangle$ és  $\Lambda_{C} = \langle 0.84, 1.36 \rangle$.
 
 \subsection{Egyenlő mintaszámú intervallumok}
-A minták növekvő sorrendjében minden $N / L$. pozícióban található érték számít az intervallum határának. Ha az így számolt pozíció nem lenne egész szám, a kapott értéket le- és felkerekítve választjuk ki a pozíciókat. A következő pozíciót a felkerekítettől indulva választjuk ki. Ezeken a helyeken szereplő értékek átlaga adja az intervallum határát. Hisztogramról leolvasható, mert L felbontású hisztogramon az adatponthoz az azt tartalmazó vödör sorszáma rendelhető. Egyenlő kvantilisű vagy egyenlő frekvenciájú intervallumoknak is nevezhetők.
+A minták növekvő sorrendjében minden $N / L$. pozícióban található érték számít az intervallum határának. Ha az így számolt pozíció nem lenne egész szám, a kapott értéket a kerekítés szabályai szerint egész számra kerekítve választjuk ki a pozíciót. Ezeken a helyeken szereplő értékek adják az intervallumok határát. Hisztogramról leolvasható, mert L felbontású hisztogramon az adatponthoz az azt tartalmazó vödör sorszáma rendelhető. Egyenlő kvantilisű vagy egyenlő frekvenciájú intervallumoknak is nevezhetők.
 
-A példában 10 minta szerepel, ezeket kell 3 intervallumban elhelyezni. Ezért az adott változó szerint sorbarendezett mintákban a 3.33 és 7.33 pozícióban levő értéket keressük. Tehát a 3. és 4. valamint 7. és 8. helyen levő értékeket átlagoljuk. Esetünkben így ezek a határok $\Lambda_{B} = \langle 2.87, 3.97 \rangle$ és  $\Lambda_{C} = \langle 0.515, 1.3 \rangle$.
+A példában 10 minta szerepel, ezeket kell 3 intervallumban elhelyezni. Ezért az adott változó szerint sorbarendezett mintákban a 3.33 és 6.67 pozícióban levő értéket keressük. Tehát a 3. valamint 7. helyen levő értékek lesznek az intervallumok felső határai. Esetünkben így ezek a határok $\Lambda_{B} = \langle 2.78, 3.70 \rangle$ és  $\Lambda_{C} = \langle 0.51, 1.27 \rangle$.
 
 \subsection{Nyomaték párosítás}
 A diszkretizált értékeket $\langle d_{1}, d_{2}, \dots, d_{L-1}\rangle$ formában keressük, melynek a diszkrét eloszlását a $\langle p_{1}, p_{2}, \dots, p_{L-1}\rangle$ valószínűségek adják meg, és teljesítik a következő feltételeket \cite{nojavan2017comparative}:
@@ -60,7 +60,7 @@ A diszkretizált értékeket $\langle d_{1}, d_{2}, \dots, d_{L-1}\rangle$ form�
 \end{align}
 ahol \emph{x} a folytonos változó értékei, \emph{N} a számosságuk. Az \emph{m} került bevezetésre az adatsor átlagának jelölésére, a \emph{q} pedig az adatsort normalizáló tényező.
 
-A diszkretizáció elvégzése után az új eloszlás minden rendbeli nyomatéka a megegyezik az eredeti adatsor adott nyomatékával. A határpontok számának növelésével növekszik az egyenletek száma és komplexitása. Az egyenletrendszert numerikusan is nehéz megoldani, mert nem konvex probléma, így az összes lehetséges értéken kell keresést végezni. A lehetséges értékek pedig a $ \mathbb{R}^{L-1} $ halmazban vannak. Lehetséges csak egy bizonyos pontosságig végezni a keresést és a minimum és maximum közé szorítani, így véges számú értéket kell kipróbálni. Ám az intervallumok számával exponenciálisan növekszik a lehetséges értékek száma, így könnyen végrehajthatatlanná válik.
+A diszkretizáció elvégzése után az új eloszlás minden rendbeli nyomatéka a megegyezik az eredeti adatsor adott nyomatékával. A diszkrét értékek számának növelésével növekszik az egyenletek száma és komplexitása. Az egyenletrendszert numerikusan is nehéz megoldani, mert nem konvex probléma, így az összes lehetséges értéken kell keresést végezni. A lehetséges értékek pedig a $ \mathbb{R}^{L-1} $ halmazban vannak. Lehetséges csak egy bizonyos pontosságig végezni a keresést és a minimum és maximum közé szorítani, így véges számú értéket kell kipróbálni. Ám az intervallumok számával exponenciálisan növekszik a lehetséges értékek száma, így könnyen végrehajthatatlanná válik.
 
 \subsection{Tárgyterület-függő diszkretizáció}
 Amennyiben az adott statisztikai változóról több információ áll rendelkezésre, készíthető speciális, az adott tárgyterülethez kapcsolódó diszkretizáció.
@@ -73,9 +73,9 @@ Az egyváltozós diszkretizáció egyszerűségéből adódik a hátránya is. A
 \subsection{Minimális hosszúságú leírás elve alapján}
 A minimális hosszúságú leírás elve (MDL) azt mondja ki, hogy egy adathalmaz legjobb modellje az, amelyik minimalizálja a leírásához szükséges információ mennyiségét \cite{friedman1996discretizing}.
 
-Az információ sűrűségének jellemzésére megfelelő mutató az (információ) entrópia. Így a feladatot megfogalmazhatjuk úgy is, hogy minimalizálandó a diszkretizációs elv szerint a modell entrópiája.
-
-% TODO: képletek Friedmantól
+Az információ sűrűségének jellemzésére megfelelő mutató az (információ) entrópia. Így a feladatot megfogalmazható úgy is, hogy minimalizálandó a diszkretizációs elv szerint a modell entrópiája. Az algoritmus célja egy olyan reprezentációt találni az eredeti \emph{D} adatsorhoz, amely leírása bitekben minimális hosszúságú és tartalmazza a diszkretizált értékeket (részben a Bayes-hálóba kódolva), a diszkretizációs elvet, valamint a diszkretizált értékekből az eredeti adatsor visszaállításához szükséges információt.
+$$ DL_{D} = DL(U^{*}, G, D^{*}) + DL_{\Lambda}(\Lambda) + DL_{D^{*} \rightarrow D}(D, \Lambda)$$
+Itt a \emph{DL} a leírás hossza bitekben, \emph{D} az eredeti adatsor, \emph{G} a Bayes-háló, \emph{D*} a diszkretizált adatsor, \emph{$\Lambda$} a diszkretizációs elv és \emph{U*} a \emph{D*} egyedi értékei.
 
 Ennek megoldása $O(n^3)$ időben futtatható, ahol az $n$ a tanító adatok száma.
 
@@ -89,5 +89,18 @@ Az \textit{a posteriori} becslés esetén a prior megfelelő megválasztása kul
 
 Mivel megoldható a feladat dinamikus programozással (lehet építeni a korábban kiszámolt valószínűségekre), így az futásidő $O(n^2)$-re csökken, ahol $n$ a tanító adatok száma.
 
-\section{Diszkretizációs módszerek}
+Az algoritmust a \ref{chapter:bayesdontesalapu}. fejezet részletesebben tárgyalja.
+
+\section{Struktúra tanulás}
+Egy Bayes-háló alapja egy irányított körmentes gráf. A tartalmazott változók közti függőségeket ez reprezentálja. Ezért hasznos egy adatsor alapján a függőségi hálót felépítő algoritmus, mert erre építve a Bayes-háló átmenetei már könnyen kiszámíthatók.
+
+Általánosan két megközelítésből kiindulva működnek ezek az algoritmusok \cite{tsamardinos2006max}.
+
+\subsection{Keresés és pontozás}
+Ezek az algoritmusok a lehetséges struktúrákon haladnak, mindegyiket pontozzák az adatsorhoz illeszkedésük szerint. A pontszámokat összehasonlítják és a legjobb eredmény elért lesz a kiválasztott háló.
+
+Ilyenek például a a \emph{pomegranate} csomagban megvalósított \emph{greedy} és \emph{exact} algoritmusok \cite{schreiber2018pomegranate}. Ezek szintén a Minimális hosszúságú leírás elve alapján döntenek, ám itt a diszkretizáció adott, a Bayes-háló struktúra változik. Emellett a struktúrától független tagokat egy \emph{büntetés} együtthatóban egyesíti, amely megváltoztatható. Így már nem a minimális hosszúságú leírással rendelkező struktúra lesz a kiválasztott, lehet több és kevesebb élt is engedélyezni.
+
+A különbség a két említtet algoritmus között, hogy a \emph{greedy} mohó algoritmus lévén egyesével mindig a legtöbbet javító élt adja hozzá. Míg az \emph{exact} algoritmus A* keresést végez az összes háló struktúra felett.
+
 
