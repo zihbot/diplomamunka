@@ -103,7 +103,14 @@ Ilyenek például a a \emph{pomegranate} csomagban megvalósított \emph{greedy}
 
 A különbség a két említtet algoritmus között, hogy a \emph{greedy} mohó algoritmus lévén egyesével mindig a legtöbbet javító élt adja hozzá. Míg az \emph{exact} algoritmus A* keresést végez az összes háló struktúra felett. Másfajta keresés alapján is lehet hasonló elven működő algoritmust létrehozni.
 
+A hátránya, hogy a kereséshez heurisztikát használ, ami az eredményt nagyban befolyásolja.
+
 \subsection{Kényszer alapú}
 A struktúra tanuló algoritmusoknak ez a fajtája abból indul ki, hogy a Bayes hálóban a feltételesen független változók között nem lehet él. A feltételes függetlenséget információelméleti tesztekkel állapítja meg. Ilyen a PC \cite{spirtes2000constructing} algoritmus.
 
 Amennyiben a változók időrendje adott, ezen algoritmus eredménye egyetlen gráf lesz, melynek topológia sorrendje a változók időrendje. Ez az időrend a kauzalitások irányát adja meg, nem feltétlenül időbeliségre utal.
+
+A \emph{pomegranate} könyvtárban ilyen típusú a Chow-Liu implementáció.
+
+\subsection{Hibrid}
+A két megközelítését ötvözve is készültek algoritmusok. Ilyen a Max-Min Hill-Climbing \cite{tsamardinos2006max}, amely mindkét típus előnyeit kihasználja. A kényszer alapúak megtalálják, mely változók között kell legyenek az élek, de a topológiai sorrendet (tehát az irányokat) nem ismerik fel automatikusan. Ezért egy irányítatlan gráfig fut ilyen algoritmus, az élek irányát pontozással határozza meg.
