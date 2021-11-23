@@ -101,6 +101,9 @@ Ezek az algoritmusok a lehetséges struktúrákon haladnak, mindegyiket pontozz�
 
 Ilyenek például a a \emph{pomegranate} csomagban megvalósított \emph{greedy} és \emph{exact} algoritmusok \cite{schreiber2018pomegranate}. Ezek szintén a Minimális hosszúságú leírás elve alapján döntenek, ám itt a diszkretizáció adott, a Bayes-háló struktúra változik. Emellett a struktúrától független tagokat egy \emph{büntetés} együtthatóban egyesíti, amely megváltoztatható. Így már nem a minimális hosszúságú leírással rendelkező struktúra lesz a kiválasztott, lehet több és kevesebb élt is engedélyezni.
 
-A különbség a két említtet algoritmus között, hogy a \emph{greedy} mohó algoritmus lévén egyesével mindig a legtöbbet javító élt adja hozzá. Míg az \emph{exact} algoritmus A* keresést végez az összes háló struktúra felett.
+A különbség a két említtet algoritmus között, hogy a \emph{greedy} mohó algoritmus lévén egyesével mindig a legtöbbet javító élt adja hozzá. Míg az \emph{exact} algoritmus A* keresést végez az összes háló struktúra felett. Másfajta keresés alapján is lehet hasonló elven működő algoritmust létrehozni.
 
+\subsection{Kényszer alapú}
+A struktúra tanuló algoritmusoknak ez a fajtája abból indul ki, hogy a Bayes hálóban a feltételesen független változók között nem lehet él. A feltételes függetlenséget információelméleti tesztekkel állapítja meg. Ilyen a PC \cite{spirtes2000constructing} algoritmus.
 
+Amennyiben a változók időrendje adott, ezen algoritmus eredménye egyetlen gráf lesz, melynek topológia sorrendje a változók időrendje. Ez az időrend a kauzalitások irányát adja meg, nem feltétlenül időbeliségre utal.
