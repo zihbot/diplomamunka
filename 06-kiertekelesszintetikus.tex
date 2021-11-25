@@ -1,0 +1,16 @@
+%----------------------------------------------------------------------------
+\chapter{Kiértékelés szintetikus adatokon}\label{chapter:kiertekelesszintetikus}
+%----------------------------------------------------------------------------
+% végére szekvenciadiagrammok, összehasonlítva az előző fejezet algoritmusával
+
+Ez a fejezet bemutatja a korábbi fejezetekben ismertetett és implementált algoritmusok eredményét különböző általános adathalmazokon. Az ebből kapott eredményeket ismerteti és összehasonlítja egymással.
+
+\section{Adatforrás}
+A gépi tanulási algoritmusok bemenete általában egy adatsor. Egy megtisztított adatsort létrejötte egy hosszabb folyamat eredménye. Először adatfelvételt kell végezni, gyakran ezt digitalizálni is szükséges. Ezután a ki kell szűrni a mérési hibákat amennyire lehetséges. A cél egy olyan adatsor, amely nem tartalmaz hiányt és egyik változó szórása sem kiemelkedően magas.
+
+Annak érdekében, hogy az új algoritmusok teszteléséhez, valamint az eredményeik reprodukálásához ne legyen szükség ezeknek a lépéseknek az elvégzésére, léteznek előfeldolgozott adatokat tartalmazó adatbázisok, melyek szabadon hozzáférhetők. Így a reprodukálás is egyszerűbb, mert ugyanazokon az adatokon lehet így futtatni az algoritmusokat.
+
+Az egyik legismertebb és legtöbbet használt ilyen adatbázis az \emph{UCI Machine Learning Repository} \cite{dua2019university}. 1987-ben hozták létre egy ftp-n elérhető archívumként. Jelenleg 588 adatsort tartanak karban. Ismertsége megmutatkozik abban is, hogy a számítástechnikai publikációkban a 100 legtöbbet hivatkozott forrás között szerepel. Emellett a \emph{scikit-learn} python csomag, mely az adattudósok körében szintén gyakran használt könyvtár, több adatsort tartalmaz ebből a tárházból. Ezek a csomag telepítésével automatikusan letöltődnek, mert elég kis méretűek.
+
+\subsection{Iris}
+Az adattárház egyik első adatsora. A különböző nőszirom nemzetségbe tartozó fajokról tartalmaz információkat. Három faj szerepel benne: a mocsári írisz, a foltos nőszirom és a virginiai nőszirom. A fajok példányai a rekordok, mindegyik tartalmazza a példány csészelevelének és sziromlevelének a szélességét és magasságát. A cél megállapítani a növényfajt a kapott csésze- és sziromlevél méretekből.Minden fajhoz 50 adatpont tartozik, így a teljes adatsor 150 mintából áll. Mivel sok más tanulmánnyal is összevethetők így az adatok, az algoritmusok összehasonlításához ez a Diplomamunka is ezt az adatsort használja.
