@@ -14,3 +14,14 @@ Az egyik legismertebb és legtöbbet használt ilyen adatbázis az \emph{UCI Mac
 
 \subsection{Iris}
 Az adattárház egyik első adatsora. A különböző nőszirom nemzetségbe tartozó fajokról tartalmaz információkat. Három faj szerepel benne: a mocsári írisz, a foltos nőszirom és a virginiai nőszirom. A fajok példányai a rekordok, mindegyik tartalmazza a példány csészelevelének és sziromlevelének a szélességét és magasságát. A cél megállapítani a növényfajt a kapott csésze- és sziromlevél méretekből.Minden fajhoz 50 adatpont tartozik, így a teljes adatsor 150 mintából áll. Mivel sok más tanulmánnyal is összevethetők így az adatok, az algoritmusok összehasonlításához ez a Diplomamunka is ezt az adatsort használja.
+
+További előnye a kis változószám, amely miatt az eredmények könnyebben áttekinthetők.
+
+\section{Referencia}
+A Chen et al. \cite{chen2017learning} és a \ref{chapter:bayesdontesalapu}. fejezet által ismertetett módszer eredményei szerepelnek ebben a szakaszban. A tanulmányban leírt módokon futott, hogy az implementáció sikerességét empirikusan is meg lehessen tapasztalni. Az így kapott eredményeket össze lehet hasonlítani más tanulási módokkal, így a kiértékelésnél ez van először bemutatva.
+
+A bemutatott két módszer egyike az ismert topológiai sorrendű struktúrán tanulás, a másik minden előzetes információ nélkül, a legjobb értékelésűt kiválasztva.
+
+Az ismert topológiai sorrend a \emph{E, A, B, C, D} amennyiben az oszlopokat ábécé szerint nevezzük el. Tehát a faj az első, ennek leszármazottjait keressük. Ezzel a sorrenddel k2 struktúra tanulás fut, mely közben minden él hozzáadása után lefut a diszkretizáló algoritmus. A struktúra tanulás következő lépése már a frissített diszkretizációval rendelkező adatokkal számol.
+
+Az előzetes információk nélküli tanulás esetén 50 véletlenszerű topológiai sorrenddel futott a k2 algoritmus. Minden él hozzáadása után ebben az esetben is diszkretizáció következett, a frissített diszkretizációs elv alapján számolt adatokon. Öt változó esetén az összes lehetséges topológiai sorrend $5! = 120$ lenne, így a futtatáskor csak 42\%-a van tesztelve. Ezért előfordulhat, hogy több futtatás esetén különböző az eredmény. A kapott 50 struktúrához a k2 algoritmus heurisztikája értékeinek összegét rendeli. Ez alapján a legmagasabb értékű lesz a kiválasztott sorrend és struktúra.
