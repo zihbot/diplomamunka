@@ -25,3 +25,12 @@ A bemutatott két módszer egyike az ismert topológiai sorrendű struktúrán t
 Az ismert topológiai sorrend a \emph{E, A, B, C, D} amennyiben az oszlopokat ábécé szerint nevezzük el. Tehát a faj az első, ennek leszármazottjait keressük. Ezzel a sorrenddel k2 struktúra tanulás fut, mely közben minden él hozzáadása után lefut a diszkretizáló algoritmus. A struktúra tanulás következő lépése már a frissített diszkretizációval rendelkező adatokkal számol.
 
 Az előzetes információk nélküli tanulás esetén 50 véletlenszerű topológiai sorrenddel futott a k2 algoritmus. Minden él hozzáadása után ebben az esetben is diszkretizáció következett, a frissített diszkretizációs elv alapján számolt adatokon. Öt változó esetén az összes lehetséges topológiai sorrend $5! = 120$ lenne, így a futtatáskor csak 42\%-a van tesztelve. Ezért előfordulhat, hogy több futtatás esetén különböző az eredmény. A kapott 50 struktúrához a k2 algoritmus heurisztikája értékeinek összegét rendeli. Ez alapján a legmagasabb értékű lesz a kiválasztott sorrend és struktúra.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=12cm]{figures/result/ref_adott.png}
+    \caption{Ismert topológiai sorrend mellett kialakított Bayes-háló}
+    \label{fig:eredmeny-referencia}
+\end{figure}
+
+Ismert: [5.45, 6.15], [2.95, 3.35], [2.45, 4.75], [0.8, 1.75]

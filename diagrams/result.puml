@@ -1,0 +1,15 @@
+@startuml ref_adott
+scale 3
+
+(Csészelevél\nhossz) as sl
+(Csészelevél\nszélesség) as sw
+(Sziromlevél\nhossz) as pl
+(Sziromlevél\nszélesség) as pw
+(Faj) as cl
+
+cl --> sl
+cl --> sw
+cl --> pl
+cl --> pw
+
+@enduml
