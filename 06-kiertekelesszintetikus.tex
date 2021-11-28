@@ -29,8 +29,24 @@ Az előzetes információk nélküli tanulás esetén 50 véletlenszerű topoló
 \begin{figure}[htp]
     \centering
     \includegraphics[width=12cm]{figures/result/ref_adott.png}
-    \caption{Ismert topológiai sorrend mellett kialakított Bayes-háló}
-    \label{fig:eredmeny-referencia}
+    \caption{Referencia módszer szerint, ismert topológiai sorrend mellett kialakított Bayes-háló}
+    \label{fig:eredmeny-referencia-ismert}
 \end{figure}
 
-Ismert: [5.45, 6.15], [2.95, 3.35], [2.45, 4.75], [0.8, 1.75]
+\begin{table}[h]\centering
+    \begin{tabular}{lcc}
+    Változó               & Ismert     & Véletlenszerű \\ \hline
+    Csészelevél hossz     & 5.45, 6.15 & 0.95   \\
+    Csészelevél szélesség & 2.95, 3.35 & 0.35   \\
+    Sziromlevél hossz     & 2.45, 4.75 & 0.32   \\
+    Sziromlevél szélesség & 0.8, 1.75  & 1.59
+    \end{tabular}
+    \caption{Referencia módszer szerint, ismert és véletlenszerű topológiai sorrend mellett számolt referenciatartományok a folytonos változókra}
+    \label{tab:eredmeny-referencia}
+\end{table}
+
+Az ismert topológiai sorrend melletti futás nagyon gyors volt. Az inicializáció és a végleges diszkretizáció között 1,937 másodperc telt el.
+
+Az automatikus tanulás során az eltelt időre a korábbi ötvenszerese várható, hiszen azt az algoritmust futtatjuk ötvenszer. A 2 perc 11 másodperces futásidő ennél lényegesen hosszabb (2s * 20 = 100s = 1m 40s). Ennek oka, hogy az ezalatt tanult bayes-hálók bonyolultabbak, mint az ismert sorrendű egy szülős felépítése. Az algoritmus pedig a közös gyerek szüleit lassan diszkretizálja. A véletlenszerű struktúrák esetén pedig ilyenek könnyen előfordulhatnak.
+\emph{E, B, D, A, C}
+A véletlenszerű topológiai sorrendekből az algoritmus szerint a \emph{E, B, D, A, C} bizonyult a legjobbnak.

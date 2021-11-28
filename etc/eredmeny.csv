@@ -1,0 +1,21 @@
+Változó	Ismert	Véletlenszerû
+Csészelevél hossz	5.45, 6.15	5.45, 6.15
+Csészelevél szélesség	2.95, 3.35	2.95, 3.35
+Sziromlevél hossz	2.45, 4.75	2.45, 4.75
+Sziromlevél szélesség	0.80, 1.75	0.80, 1.75
+		
+Metrika		
+TP	139.00	
+FP	11.00	
+TPR	0.93	
+FDR	0.07	
+PPV	0.93	
+ACC	0.95	
+MCC	0.89	
+F-measure	0.93	
+		
+		
+		
+		
+		
+		
