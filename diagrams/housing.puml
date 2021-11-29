@@ -1,0 +1,19 @@
+@startuml housing_ref_known
+scale 3
+
+(Bűnözés) as A
+(Zóna) as B
+(Föld) as C
+(Folyó) as D
+(NO) as E
+(Szoba) as F
+(Tulajdonos) as G
+(Távolság) as H
+(Autópálya) as I
+(Adó) as J
+(Tanár) as K
+(Etnikum) as L
+(Képzettség) as M
+(Medián) as N
+
+@enduml
