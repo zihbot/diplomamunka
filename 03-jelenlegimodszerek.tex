@@ -1,5 +1,6 @@
 %----------------------------------------------------------------------------
 \chapter{Jelenlegi módszerek}
+\label{chapter:jelenlegimodszerek}
 %----------------------------------------------------------------------------
 
 Az előző fejezetben leírt Bayes-hálók csomópontjai folytonos és diszkrét valószínűségi változók is lehetnek. Az automatizált struktúra tanulás során azonban az élek feltételes valószínűségi táblákként adódnak, ezek az algoritmusok csak diszkrét valószínűségi változókkal tudnak dolgozni. Ezért szükséges, hogy a bemeneti folytonos változók a struktúra tanulás előtt diszkretizálva legyenek.
@@ -34,7 +35,7 @@ Tekintsük a \ref{tab:diszkretizacio-pelda}. táblázat adatait. Ebben az esetbe
 Az intervallumok többféle módon is megadhatók. Szövegesen leírható például így: a \emph{C} változó adatsorát az 1-nél nagyobb és nemnagyobb értékekre bontjuk. Ez matematikai jelölésekkel felírható a $\Lambda_{C} = \left\{ \interval[open left]{-\inf}{1}, \interval[open]{1}{\inf} \right\} $ módon, így $\Lambda$ jelöli az adatsor összes diszkretizációs intervallumának halmazát, az alsó index mutatja, mely változóhoz tartozik. Mivel minden pontot valamelyik intervallum tartalmazni fogja, ezért egy listában növekvő sorrendben elég megadni a határokat. Ráadásul a minimum és maximum érték is ismert, így ezek használhatók a $\inf$ szimbólum helyett vagy el is hagyhatók. Ezen a módon a $\Lambda_{C} = \langle 0.32, 1, 1.88 \rangle$. Ez a diszkretizációs sorozat \cite{friedman1996discretizing}. Függvény formában is leírható, ilyenkor
 $f_{\Lambda_{C}}(x) = \left\{ \begin{array}{ll}
     0 & \mbox{ha } x \leq 1 \\
-    1 & \mbox{ga } x > 1
+    1 & \mbox{ha } x > 1
 \end{array} \right.$. Növekvő sorrendbe rendezett értékek esetén az intervallum utolsó elemének pozíciója is egyértelműen megadja a határt. A példában 6 db 1-nél nemnagyobb érték van, így $e_{C} = \langle 6 \rangle$.
 
 \subsection{Egyenlő hosszú intervallumok}

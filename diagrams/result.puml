@@ -13,3 +13,48 @@ cl --> pl
 cl --> pw
 
 @enduml
+@startuml ref_random
+scale 3
+
+(Csészelevél\nhossz) as sl
+(Csészelevél\nszélesség) as sw
+(Sziromlevél\nhossz) as pl
+(Sziromlevél\nszélesség) as pw
+(Faj) as cl
+
+cl --> sw
+cl --> pl
+cl --> pw
+pw --> sl
+
+@enduml
+@startuml eq_width-greedy
+scale 3
+
+(Csészelevél\nhossz) as sl
+(Csészelevél\nszélesség) as sw
+(Sziromlevél\nhossz) as pl
+(Sziromlevél\nszélesség) as pw
+(Faj) as cl
+
+sw --> pw
+pw --> cl
+cl --> pl
+pl --> sl
+
+@enduml
+@startuml eq_width-chowliu
+scale 3
+
+(Csészelevél\nhossz) as sl
+(Csészelevél\nszélesség) as sw
+(Sziromlevél\nhossz) as pl
+(Sziromlevél\nszélesség) as pw
+(Faj) as cl
+
+pw --> sw
+cl --> pw
+pl --> cl
+sl --> pl
+
+@enduml

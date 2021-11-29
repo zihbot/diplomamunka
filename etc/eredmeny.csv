@@ -1,21 +1,18 @@
-Változó	Ismert	Véletlenszerû
-Csészelevél hossz	5.45, 6.15	5.45, 6.15
-Csészelevél szélesség	2.95, 3.35	2.95, 3.35
-Sziromlevél hossz	2.45, 4.75	2.45, 4.75
-Sziromlevél szélesség	0.80, 1.75	0.80, 1.75
-		
-Metrika		
-TP	139.00	
-FP	11.00	
-TPR	0.93	
-FDR	0.07	
-PPV	0.93	
-ACC	0.95	
-MCC	0.89	
-F-measure	0.93	
-		
-		
-		
-		
-		
-		
+;;;;Egyenlõ széles;;;;Egyenlõ mintaszámú;;;
+;Változó;Ismert;Véletlenszerû;greedy;chow-liu;exact;k2;greedy;chow-liu;exact;k2
+;Csészelevél hossz;5.45, 6.15;5.45, 6.15;5.50, 6.70;;;;5.40, 6.30;;;
+;Csészelevél szélesség;2.95, 3.35;2.95, 3.35;2.80, 3.60;;;;2.90, 3.20;;;
+;Sziromlevél hossz;2.45, 4.75;2.45, 4.75;2.97, 4.93;;;;1.90, 4.90;;;
+;Sziromlevél szélesség;0.80, 1.75;0.80, 1.75;0.90, 1.70;;;;0.60, 1.60;;;
+;;;;;;;;;;;
+;Metrika;;;;;;;;;;
+Valódi pozitív;TP;139.00;139.00;147.00;;;146.00;139.00;;;
+Hamis pozitív;FP;11.00;11.00;3.00;;;4.00;11.00;;;
+Valódi pozitív arány;TPR;0.93;0.93;0.98;;;0.97;0.93;;;
+Hamis felfedezési arány;FDR;0.07;0.07;0.02;;;0.03;0.07;;;
+Pozitív prediktív érték;PPV;0.93;0.93;0.98;;;0.97;0.93;;;
+Pontosság;ACC;0.95;0.95;0.99;;;0.98;0.95;;;
+Matthews korrelációs együttható;MCC;0.89;0.89;0.97;;;0.96;0.89;;;
+;F-measure;0.93;0.93;0.98;;;0.97;0.93;;;
+;;;;;;;;;;;
+;Time;1.937;131.166;0.061;;;;;;;

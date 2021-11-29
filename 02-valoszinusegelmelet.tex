@@ -45,7 +45,7 @@ A Zaj-ból a processzor túlmelegedésére következtetés a Bayes-tétel alapj�
 $$P(C=+\,|\,Z=+) = \frac{P(Z=+\,|\,C=+) \cdot P(C=+)}{P(Z=+)} = \frac{0.7 \cdot 0.01}{0.3535} \approx \textbf{0.0198}$$
 Ehhez hasonlóan a Bayes-hálóban bármely változó rögzítése esetén a többire valószínűség számolható.
 
-%Háló elemei, elnevezések
+% TODO: Háló elemei, elnevezések
 
 \section{Becslés}
 A valószínűségek segítségével becsléseket is adhatunk arra vonatkozóan, hogy a megfigyelések mellett mely állapot a legvalószínűbb. Ezek általánosan használhatók paraméterezhető modellekre.
@@ -59,8 +59,3 @@ A maximumkereséshez a valószínűség negatív logaritmusát lehet venni, így
 Amennyiben van további ismeretünk a paraméterekről, úgy alkalmazhatunk olyan becslést, amely ezt figyelembe veszi. A Bayes-tétel segítségével vizsgálható a megfigyelt adathoz tartozó legvalószínűbb paraméterezés is, hiszen
 $$\argmax_{\Lambda}{P(\Lambda\,|\,D)} = \argmax_{\Lambda}\{P(D\,|\,\Lambda) \cdot P(\Lambda)\}$$
 Ennek a becslés típusnak a neve \emph{Bayes-döntés}, más néven \emph{a postreriori} vagy \emph{posterior becslés}. A negatív logaritmus minimalizálása itt is jó megoldás. A Legnagyobb valószínűség módszerben (maximum likelihood) szereplő tényezőt - $P(D\,|\,\Lambda)$ - \emph{likelihood} tagnak, az előzetes ismeretet tartalmazót - $P(\Lambda)$ - \emph{prior} tagnak nevezik. A tag elnevezés a gyakori negatív logaritmizálás miatt van, mert annak hatására a szorzatból összeg lesz, melynek ezek a tagjai.
-
-% Példa végig vezetése
-% Becslések, ML, MAP
-
-% MDL-ről egy oldalt legalább írni következő fejezetben
