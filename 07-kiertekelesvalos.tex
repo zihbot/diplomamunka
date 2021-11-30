@@ -62,7 +62,7 @@ Erre megoldási lehetőség, hogy az adatoknak kis részén fut az eljárás. Eh
 
 \begin{figure}[htp]
     \centering
-    \includegraphics[width=8cm]{figures/TGL_hist.png}
+    \includegraphics[width=12cm]{figures/TGL_hist.png}
     \caption{A trigliceridek hisztogramja logaritmikus skálán}
     \label{fig:cardio_tgl_hist}
 \end{figure}
@@ -99,5 +99,22 @@ Az ismert topológiai sorrend mellett a kísérlet elvégezhető az információ
     \label{fig:cardio_kiugro_ertek_kezdeti}
 \end{figure}
 
-Az így futtatott algoritmus a \ref{tab:cardio_kiugro_ertek}. táblázatban található referencia tartományokat állapítja meg. Az ismert sorrenddel futtatott algoritmus a \ref{fig:cardio_kiugro_ertek}. ábrán látható, a számolt kezdeti sorrenddel futtatott a \ref{fig:cardio_kiugro_ertek_kezdeti}. ábrán látható Bayes-hálót építi fel.
+Az így futtatott algoritmus a \ref{tab:cardio_kiugro_ertek}. táblázatban található referencia tartományokat állapítja meg. Az ismert sorrenddel futtatott algoritmus a \ref{fig:cardio_kiugro_ertek}. ábrán látható, a számolt kezdeti sorrenddel futtatott a \ref{fig:cardio_kiugro_ertek_kezdeti}. ábrán látható Bayes-hálót építi fel. Az ismert sorrend mellett is az eredetitől jelentősen eltérő háló az eredmény, tartalmaz olyan éleket, melyet az eredeti nem, valamint nem is lett összefüggő.
 
+A referencia tartománytól a diszkretizációs határpontok így is eltérnek, de kapcsolat érzékelhető közöttük. Ez a módszer nem elégséges a referencia tartományok megtalálásához, de az elkészült Bayes-háló alkalmas lehet predikcióra.
+
+\section{Koronavírus}
+A predikciós képesség vizsgálatához másik adathalmazra volt szükség, mert ebben nem állt rendelkezésre előre jelzésre alkalmas változó. A 2020-as járványhelyzet miatt megjelent több adatsor is fertőzéssel kapcsolatos adatokkal.
+
+Az Albert Einstein Kórház, São Paulo, Brazil által kiadott adatsort publikálta Avilla et al. \cite{avila2020hemogram}. A kórházban 5 644 páciensen végeztek qRT-PCR tesztet, mert COVID-19 fertőzésre utaló tüneteik voltak. Néhány személyről vérképet is készítettek, összesen 15 paraméter alapján. Teljes adat csak 510 páciensnél van, így a hiány jelentős. Az adatsor tartalmazza többek között a qRT-PCR teszt eredményét, a páciens azonosítóját egyirányúan titkosítva, a korcsoportját 5 éves csoportokban, valamint a vérkép eredményét az adott paraméter szerint normalizálva, hogy az anonimitást fenntartsák.
+
+A diplomamunka méréseibe a glükóz szintje nem volt használva, mert az volt a legtöbb helyen hiányzó adat. Így az 510 helyett 598 mintás adatsoron volt lehetőség futtatni az algoritmust. A topológiai sorrendet kizárólag az információelméleti megközelítésből származó feltételes entrópia algoritmus határozta meg, mert semmilyen előismeret nem volt a változók egymásra gyakorolt hatásával kapcsolatban. A maximális szülőszám 3-ban volt maximalizálva.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=15cm]{figures/covid/covid_result.png}
+    \caption{A tanult Bayes-háló a koronavírus adatsoron}
+    \label{fig:covid_result}
+\end{figure}
+
+A tanult Bayes-háló a \ref{fig:covid_result}. ábrán található. Feltűnő, hogy a vörösvértestekkel kapcsolatos paramétereket leválasztotta a teszteredményről, ez alapján függetlennek tekinthető lehetne. Másik érdekesség a kor változó is a vörösvértest fába került, azok méretével kapcsolatban. A teszt eredményének fája két ágra bomlik. Egyik a vérlemezkékkel kapcsolatos, másik az immunrendszerrel. Ez nem egy meglepő eredmény, de empirikusan alátámaszthatja az algoritmust.

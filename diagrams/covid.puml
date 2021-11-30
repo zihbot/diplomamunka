@@ -1,0 +1,40 @@
+@startuml covid_result
+scale 3
+
+(Kor) as 0
+(PCR teszt) as 1
+(Hematokrit) as 2
+(Hemoglobin) as 3
+(Vérlemezkeszám) as 4
+(Átlagos vérlemezke\ntérfogat) as 5
+(Vörösvértest) as 6
+(Limfociták) as 7
+(Átlag hemoglobin\nkoncentráció) as 8
+(Leukociták) as 9
+(Basophil) as 10
+(Vörösvértest\nhemoglobin\nkoncentráció) as 11
+(Eosinophil) as 12
+(Vörösvértest\nvolumen) as 13
+(Monociták) as 14
+(Vörösvértest\neloszlási\nszélessége) as 15
+
+1 --> 9
+9 --> 4
+9 --> 12
+4 --> 5
+12 --> 7
+12 --> 10
+7 --> 14
+10 --> 14
+
+3 --> 2
+2 --> 6
+2 --> 13
+6 --> 13
+13 --> 11
+13 --> 0
+11 --> 8
+8 --> 15
+0 --> 15
+
+@enduml
