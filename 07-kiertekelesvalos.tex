@@ -106,9 +106,9 @@ A referencia tartománytól a diszkretizációs határpontok így is eltérnek, 
 \section{Koronavírus}
 A predikciós képesség vizsgálatához másik adathalmazra volt szükség, mert ebben nem állt rendelkezésre előre jelzésre alkalmas változó. A 2020-as járványhelyzet miatt megjelent több adatsor is fertőzéssel kapcsolatos adatokkal.
 
-Az Albert Einstein Kórház, São Paulo, Brazil által kiadott adatsort publikálta Avilla et al. \cite{avila2020hemogram}. A kórházban 5 644 páciensen végeztek qRT-PCR tesztet, mert COVID-19 fertőzésre utaló tüneteik voltak. Néhány személyről vérképet is készítettek, összesen 15 paraméter alapján. Teljes adat csak 510 páciensnél van, így a hiány jelentős. Az adatsor tartalmazza többek között a qRT-PCR teszt eredményét, a páciens azonosítóját egyirányúan titkosítva, a korcsoportját 5 éves csoportokban, valamint a vérkép eredményét az adott paraméter szerint normalizálva, hogy az anonimitást fenntartsák.
+Az Albert Einstein Kórház, São Paulo, Brazil által kiadott adatsort publikálta Avilla et al. \cite{avila2020hemogram}. A kórházban 5 644 páciensen végeztek qRT-PCR tesztet, mert COVID-19 fertőzésre utaló tüneteik voltak. Néhány személyről vérképet is készítettek, összesen 15 paraméter alapján. Teljes adat csak 510 páciensnél van, így a hiány jelentős. Az adatsor tartalmazza többek között a qRT-PCR teszt eredményét, a páciens azonosítóját egyirányúan titkosítva, a korcsoportját 5 éves csoportokban, valamint a vérkép eredményét az adott paraméter szerint normalizálva, hogy az anonimitást fenntartsák. A diszkrét változó a teszt eredménye, a többi folytonosnak tekinthető.
 
-A diplomamunka méréseibe a glükóz szintje nem volt használva, mert az volt a legtöbb helyen hiányzó adat. Így az 510 helyett 598 mintás adatsoron volt lehetőség futtatni az algoritmust. A topológiai sorrendet kizárólag az információelméleti megközelítésből származó feltételes entrópia algoritmus határozta meg, mert semmilyen előismeret nem volt a változók egymásra gyakorolt hatásával kapcsolatban. A maximális szülőszám 3-ban volt maximalizálva.
+A diplomamunka méréseibe a glükóz szintje nem volt használva, mert az volt a legtöbb helyen hiányzó adat. Így az 510 helyett 598 mintás adatsoron volt lehetőség futtatni az algoritmust. A topológiai sorrendet kizárólag az információelméleti megközelítésből származó feltételes entrópia algoritmus határozta meg, mert semmilyen előismeret nem volt a változók egymásra gyakorolt hatásával kapcsolatban. A maximális szülőszám 3-ban volt maximalizálva. A futtatás 646.781 másodpercet, vagyis 10 perc 47 másodpercet vett igénybe. Ennek legfőbb oka a nagyszámú változó és a sok tanult él a gráfban.
 
 \begin{figure}[htp]
     \centering
@@ -118,3 +118,32 @@ A diplomamunka méréseibe a glükóz szintje nem volt használva, mert az volt 
 \end{figure}
 
 A tanult Bayes-háló a \ref{fig:covid_result}. ábrán található. Feltűnő, hogy a vörösvértestekkel kapcsolatos paramétereket leválasztotta a teszteredményről, ez alapján függetlennek tekinthető lehetne. Másik érdekesség a kor változó is a vörösvértest fába került, azok méretével kapcsolatban. A teszt eredményének fája két ágra bomlik. Egyik a vérlemezkékkel kapcsolatos, másik az immunrendszerrel. Ez nem egy meglepő eredmény, de empirikusan alátámaszthatja az algoritmust.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=15cm]{figures/covid/covid_small.png}
+    \caption{A tanult Bayes-háló a koronavírus adatsor részletén}
+    \label{fig:covid_small_result}
+\end{figure}
+
+A megtanult hálóban a PCR teszt változó fája csak 8 változót tartalmaz. Ezekből is készíthető egy adatsor, melyen szintén futtatható az algoritmus. Az így tanult háló a \ref{fig:covid_small_result}. ábrán látható.It egy kicsit átrendeződött, mert a feltételes entrópiák a többi változó kimaradásával máshogy alakultak, így kissé más sorrendben tanulta a változókat, ám a legtöbb él ugyanaz maradt. Az előnye ennek, hogy így 86.843 másodperc alatt, azaz 1 perc 17 másodperc után lett eredmény. Ez 13.4\%-a az eredeti futásidőnek, mely jelentős javulás a kevesebb változónak köszönhető.
+
+\begin{table}[htp]\centering
+\begin{tabular}{lcc}
+    Metrika                         & Minden változó & Összefüggő változók \\ \hline
+    Valódi pozitív                  & 492            & 486                 \\
+    Hamis pozitív                   & 108            & 114                 \\
+    Valódi pozitív arány            & 0.82           & 0.81                \\
+    Hamis felfedezési arány         & 0.18           & 0.19                \\
+    Pozitív prediktív érték         & 0.82           & 0.81                \\
+    Pontosság                       & 0.82           & 0.81                \\
+    Matthews korrelációs együttható & 0.64           & 0.62                \\
+    F-pontszám                      & 0.82           & 0.81
+    \end{tabular}
+    \caption{A koronavírus adatsoron mért prediktív teljesítmények}
+    \label{tab:covid_teljesitmeny}
+\end{table}
+
+A kiértékelést elvégezve az volt látható, hogy a Bayes-háló minden esetben negatív tesztet jósolt. Ennek oka, hogy a tanító adatsorban csak $\frac{1}{6}$ arányban szerepeltek pozitív tesztek. Ezeknek háromszoros súlyt adva a tanító adathalmazon hatszoros kereszt-validációt lehetett alkalmazni. Így megmérve az összes változóval, valamint csak a PCR teszttel összefüggő változókkal történő tanítást a \ref{tab:covid_teljesitmeny}. táblázat eredményei kaphatók. A kevesebb változó a prediktív teljesítményben nem okozott jelentős romlást, de kissé rosszabb eredményt ért el, mint az összes változón dolgozó.
+
+Az adatsorhoz kapcsolódó tanulmányban \cite{avila2020hemogram} amikor a specificitást és érzékenységet is maximaziláltak, 76.7\%-os teljesítményt értek el. Ezek a metrikák pontosan megfelelnek rendre az \emph{1 - hamis felfedezési arány}, valamint a \emph{valódi pozitív arány} metrikáknak, melyek a Bayes-döntés alapú diszkretizációs algoritmussal 82\%-nak és 81\%-nak adódtak. Ez alapján az ezen algoritmussal készült Bayes-háló alkalmas predikcióra laboratóriumi paramétereken is.

@@ -38,3 +38,25 @@ scale 3
 0 --> 15
 
 @enduml
+
+@startuml covid_small
+scale 3
+
+(PCR teszt) as 0
+(Vérlemezkeszám) as 1
+(Átlagos vérlemezke\ntérfogat) as 2
+(Limfociták) as 3
+(Leukociták) as 4
+(Basophil) as 5
+(Eosinophil) as 6
+(Monociták) as 7
+
+0 --> 4
+0 --> 6
+6 --> 5
+6 --> 3
+4 --> 7
+4 --> 1
+1 --> 2
+
+@enduml
