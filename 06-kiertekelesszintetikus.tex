@@ -130,7 +130,7 @@ Két diszkrét változót tartalmaz, a \emph{Folyó} jelöli, hogy a Charles fol
 A legnagyobb kardinalitású diszkrét változó ebben az adatsorban 8 értéket tartalmaz, így az algoritmusok célja is az adatok nagyjából nyolc intervallumra bontása. A változók sorrendjében az ABC betűi úgy vannak kiosztva, hogy a sorrend a folytonos változók felsorolásának rendje és a \emph{D} helyre a \emph{Folyó}, valamint az \emph{I} helyre a \emph{Autópálya} ékelődik be. Az ábrákon ezért a célváltozó az \emph{I}.
 
 \subsection{Korábbi kísérletek}
-A korábbi kísérleteket megismételve ezen az adatsoron látható, hogy itt sokkal jobban teljesített a referencia algoritmus. Az ismert topológiai sorrend a \emph{D, E, G, B, H, C, I, M, N, J, A, F, K, L} lett, mert a leírt algoritmus szerint ez lett a legjobb. Azért térhet el a tanulmányban bemutatottól, mert csak 1000 véletlenszerű sorrend közül választja a legjobbnak ítéltet, 14 változó esetén pedig a lehetséges permutációk száma $14\! \simeq 8.72 \cdot 10^{10}$.
+A korábbi kísérleteket megismételve ezen az adatsoron látható, hogy itt sokkal jobban teljesített a referencia algoritmus (\ref{tab:kiertekeles-lakasar}. táblázat). Az ismert topológiai sorrend a \emph{D, E, G, B, H, C, I, M, N, J, A, F, K, L} lett, mert a leírt algoritmus szerint ez lett a legjobb. Azért térhet el a tanulmányban bemutatottól, mert csak 1000 véletlenszerű sorrend közül választja a legjobbnak ítéltet, 14 változó esetén pedig a lehetséges permutációk száma $14! \simeq 8.72 \cdot 10^{10}$.
 
 Az ismert sorrenden az algoritmus 193.334 másodperc alatt, azaz 3 perc 13 másodperc alatt készítette el a betanított Bayes-hálót. Ez az időnövekedés egyrészt a mintapontok számának tudható be, hiszen az algoritmus $O(n^2)$ komplexitású a rekordok számára nézve. Másrészt a változók száma is nőtt, amely szintén $O(m^2)$ mértékben növeli a futásidőt. A k2 algoritmusban a szülők száma 3-ban maximalizálva volt, ezért nem magasabb rendű a komplexitás.
 
@@ -171,11 +171,11 @@ Ekkora változószám mellett és ilyen hosszú tanítási időkkel a Bayes-dön
 
 A feltételes entrópia alapú sorrend meghatározás implementálva van a \emph{bediscretizer} csomagban. Ezt használva a lakásár adatsoron a \emph{D, E, C, I, K, J, H, G, N, M, F, B, L, A} topológiai sorrend lesz az eredmény. Ezután futtatható a k2 algoritmus. A teljes futásidő 112.426 másodperc, tehát 1 perc 52 másodperc. Ez jobb, mint az ismert sorrenddel futó k2, aminek az oka, hogy kevés több szülős változó van a Bayes-hálóban. Ez nem az algoritmuson múlik, lehetett volna fordítva is, de az időkülönbséget magyarázza.
 
-\subsection{Eredmények}
+\subsection{Eredmény}
 
 \begin{table}[htp]\centering
     \begin{tabular}{lcccccc}
-        Metrika                         & \multicolumn{2}{c}{Referencia} & \multicolumn{2}{c}{Egyenlő hosszú} & \begin{tabular}[c]{@{}c@{}}Egyenlő\\ mintaszámú\end{tabular} & \begin{tabular}[c]{@{}c@{}}Kezdeti\\ sorrenddel\end{tabular} \\
+        Metrika                         & \multicolumn{2}{c}{Referencia} & \multicolumn{2}{c}{Egyenlő hosszú} & \begin{tabular}[c]{@{}c@{}}Egyenlő\\ mintaszámú\end{tabular} & \begin{tabular}[c]{@{}c@{}}Kezdeti\\ sorrend\end{tabular} \\
                                         & Ismert     & Véletlen     & Greedy          & Chow-Liu         & Chow-Liu                                                     & K2                                                           \\ \hline
         Valódi pozitív                  & 450        & 457               & 314             & 296              & 398                                                          & \textbf{461}                                                          \\
         Hamis pozitív                   & 56         & 49                & 192             & 210              & 108                                                          & \textbf{45}                                                           \\
@@ -190,6 +190,8 @@ A feltételes entrópia alapú sorrend meghatározás implementálva van a \emph
 \label{tab:kiertekeles-lakasar}
 \end{table}
 
-Az algoritmusok az előző részben leírt módon, tízszeres kereszt-validációval lettek értékelve. Ez látható a \ref{tab:kiertekeles-lakasar}. táblázatban. Látható, hogy az információelméleti alapon meghatározott kezdeti sorrend jól működött, ugyanazt az eredményt érte el, mint az ismert sorrenden, valamint a többször futtatott véletlen sorrenden tanuló algoritmusok, ám a sebessége jobb azoknál. Az egyszerű algoritmussal számolt diszkretizációs elvek ennél az összetett adatsornál jobban lemaradtak a Bayes-döntés alapú diszkretizációs algoritmustól.
+Az algoritmusok az előző részben leírt módon, tízszeres kereszt-validációval lettek értékelve. Ez található a \ref{tab:kiertekeles-lakasar}. táblázatban. Látható, hogy az információelméleti alapon meghatározott kezdeti sorrend jól működött, szinte ugyanazt az eredményt érte el, mint az ismert sorrenden, valamint a többször futtatott véletlen sorrenden tanuló algoritmusok, ám a sebessége jobb azoknál. Az egyszerű algoritmussal számolt diszkretizációs elvek ennél az összetett adatsornál jobban lemaradtak a Bayes-döntés alapú diszkretizációs algoritmustól.
+
+Az egyenlő mintaszámú diszkretizáció jobban teljesített az egyenlő hosszú intervallumoknál. Ennek oka, hogy az eredeti adatsor változóinak eloszlása jelentősen eltért az egyenletes eloszlástól. Emiatt az egyenlő hosszú intervallumok közül néhányba alig jutott adatpont, így kevésbé lehetett különbséget tenni és összefüggéseket felismerni.
 
 %TODO: hálókról kép

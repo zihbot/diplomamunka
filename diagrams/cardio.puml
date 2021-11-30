@@ -1,0 +1,50 @@
+@startuml cardio_start
+scale 3
+
+(Nem) as A
+(Kor) as B
+(Koleszterin) as C
+(Trigliceridek) as D
+(Vércukor) as E
+
+A --> B
+A --> C
+B --> E
+C --> E
+A --> D
+C --> D
+E --> D
+
+@enduml
+
+@startuml cardio_ismert
+scale 3
+
+(Nem) as A
+(Kor) as B
+(Koleszterin) as C
+(Trigliceridek) as D
+(Vércukor) as E
+
+A --> E
+B --> C
+C --> D
+
+@enduml
+
+@startuml cardio_kezdeti
+scale 3
+
+(Nem) as A
+(Kor) as B
+(Koleszterin) as C
+(Trigliceridek) as D
+(Vércukor) as E
+
+B --> C
+B --> E
+C --> D
+D --> A
+E --> A
+
+@enduml
