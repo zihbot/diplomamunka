@@ -12,3 +12,30 @@ md --> stru
 stru --> util
 
 @enduml
+@startuml markov-blanket
+scale 3
+
+(A)
+(E)
+(H)
+(I)
+
+cloud Markov-takaró {
+(B)
+(C)
+(D) #pink;line:blue;line.bold;text:blue
+(F)
+(G)
+}
+
+A --> B
+B --> D
+C --> D
+D --> G
+E --> F
+F --> G
+F --> I
+G --> H
+
+
+@enduml

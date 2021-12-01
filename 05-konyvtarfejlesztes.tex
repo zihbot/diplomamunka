@@ -186,3 +186,37 @@ Matthews korrelációs együttható $= \frac{TP \cdot TN-FP \cdot FN}{(TP + FP)(
 F-pontszám $= 2 \cdot \frac{PPV \cdot TPR}{PPV + TPR}$.
 
 \section{Modulok}
+Ez a rész tartalmazza MultivariateDiscretizer melletti modulok implementációinak leírását. Ezekben nincsen osztály definiálva, csak kiajánlott függvények, amelyek a csomag elsődleges funkcióján kívül is használhatók, rendezett csoportokban.
+
+\subsection{Util}
+A \emph{discretize} függvény az adatsorból és a diszkretizációs elvből elkészíti a diszkretizált adatsort. Ehhez a DataFrame-ként kapott adatsorban egy segédoszlopot hoz létre. A diszkretizációs elvvel rendelkező oszlopokon megy végig, az elv minden határánál nagyobb értékű elemeket a határpont sorszámának megfelelő osztályba helyez a segédoszlopban, majd ezt visszamásolja az eredeti helyére.
+
+A \emph{bn\_to\_graph} a pomegranate.BayesianNetwork típusú modellből készít DiGraph típusú gráfot. A modell struktúrája minden változóhoz tartalmazza a szülőváltozóit, ezen iterálva felveszi az éleket az új gráfba.
+
+A \emph{graph\_to\_bn\_structure} az előző inverze, az adott gráf struktúrából készíti el azt a modellt, melyet a pomegranate struktúra tanuló algoritmusai értelmezni tudnak.
+
+A \emph{parents\_to\_graph} a k2 algoritmus által készített listából, mely minden változóhoz a szüleit tartalmazza, készíti el a gráfot bn\_to\_graph-hoz hasonlóan.
+
+A \emph{show} függvény a Bayes-hálót rajzolja ki. Átalakítja gráffá, amit a networkx csomag gráfrajzoló függvénye jelenít meg.
+
+A \emph{concat\_array} két numpy tömböt egyesít oly módon, hogy ha valamelyik dimenzióban egyforma darabszámú elemet tartalmaznak, annak mentén illeszti az adatsort. Az adatsorokban gyakran külön változóban vannak a tanító és a célváltozók, ezek illesztéséhez hasznos.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=8cm]{figures/app/markov-blanket.png}
+    \caption{A D változó Markov-takarója}
+    \label{fig:markov-blanket}
+\end{figure}
+
+A \emph{markov\_blanket} egy gráf és egy változó azonosítója alapján kikeresi a változó Markov-takarójába tartozó változókat. Ebbe a vizsgált változó szülei, gyerekei és gyerekeinek a más szülei tartoznak bele. Ezek rögzített értéke mellett a változó független az összes többi változótól. Egy példa a \ref{fig:markov-blanket}. ábrán látható.
+
+A \emph{largest\_markov\_cardinality} végigmegy a kapott változó Markov-takaróján, és kiválasztja a legnagyobb kardinalitású számosságát.
+
+A \emph{preference\_bias} a k2 algoritmust pontozó algoritmus. A pontszámot ez az \emph{f} függvény adja, amint a \ref{chapter:bayesdontesalapu}. fejezetben ki van fejtve:
+$$ f(i, \pi_{i}) =
+\prod_{j = 1}^{q_{i}} \frac{(r_{i} - 1)!}{(N_{ij} + r_{i} - 1)!}
+\prod_{k = 1}^{r_{i}} \alpha_{ijk}!$$
+Amennyiben a változó szülőinek száma 0, akkor létrehoz egy olyan szülőt, melynek minden értéke egyforma. Ez a képlet alkotójának is az elképzelése \cite{cooper1992bayesian}. Az implementáció a numerikus stabilitás érdekében a függvény logaritmáltját számolja, így a szorzatból összeg lesz. Ez az eredményeken nem változtat, mivel a természetes alapú logaritmus szigorúan monoton növekvő, és a kapott pontszámok csak egymással vannak összehasonlítva. A faktoriális logaritmusa emellett átírható $\Gamma$ függvényes alakba.
+$$ ln(n!) = ln(\Gamma(n + 1))$$
+Ennek segítségével a scikit-learn \emph{gammaln} \footnote{https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.gammaln.html} függvénye is használható. Ez pedig a numpy mátrixokon sokkal nagyobb sebességgel képes a műveletet elvégezni, mint egy elemenkénti megvalósítás \cite{smith2015cython}.
+
