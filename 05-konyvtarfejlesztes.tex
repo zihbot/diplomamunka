@@ -170,3 +170,19 @@ A másik metódus a \emph{\_fit\_basic\_structure\_after\_node\_added}, mely a k
 A \emph{best\_edge} nevet algoritmusnak megadva szintén a k2 tanulás egy variánsa fut. Ebben az esetben nem a meghatározott sorrend alapján megy végig a változókon, hanem az összes lehetséges élt próbálja beilleszteni a nyilvántartott gráfba, majd a multi\_k2-ben megismert módon pontozottakból a legmagasabb pontszámot elérőt illeszti be végül. Véletlenszerű sorrenden futtatott k2 algoritmusnál nem ért el jobb eredményt az Iris adathalmazon. Emellett fennáll a veszélye, hogy nagy adathalmaznál a lehetséges élek nagy száma miatt jelentősen lelassul.
 
 \subsection{Kiértékelés}
+A kiértékelés során a modell tesztelése történik. A tanítás után egy tesztelő adatsorral (amely lehetőség szerint olyan adatpontokat tartalmaz, melyek a tanító adatsornak nem voltak részei) predikciót készít a modell. A predikált értékek pedig összehasonlíthatók a valódi értékekkel. Az összehasonlításra különböző módszerke vannak. A Bayes-hálók esetében, mivel diszkrét adatokkal dolgoznak, a klasszifikációs kiértékelési módszerek alkalmazhatóak, tehát a predikció az adatpontokról megállapítja, hogy a célváltozó melyik osztályába tartoznak, a kiértékelés pedig konfúziós mátrix alapján történik.
+
+A predikcióhoz a \emph{MultivariateDiscretizer predict} metódusa alkalmazható. Ennek paraméterként a teszt adatsor kell megadni, valamint a célváltozó azonosítóját. Ezután a tárolt diszkretizációs elv szerint a teszt adatokat is diszkretizálja, ismeretlenre állítja a célváltozó értékeket, majd ezt az adatsort a tárolt betanított modell \emph{predict} \footnote{\url{https://pomegranate.readthedocs.io/en/latest/BayesianNetwork.html\#pomegranate.BayesianNetwork.BayesianNetwork.predict}} metódusának átadja. Az eredményből visszaadja a célváltozóra kapott predikált értékeket.
+
+A konfúziós mátrix elkészítésére az \emph{evaluate} metódus szolgál. Ennek bemenetként a valós és a predikált értékekre van szüksége, emellett megadható a korábbi kiértékelések eredménye is. Ha mag van adva, akkor a korábbiak végéhez fűzi a számolt értékeket, ha nincsen akkor egy új eredmény objektumot hoz létre. Többosztályos változó esetén minden változóra kiszámolja a scikit-learn \emph{confusion\_matrix} \footnote{https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion\_matrix.html} függvénye által kiadott konfúziós mátrixból a változó bináris konfúziós mátrixát, ennek értékeit teszi az eredmény objektumba. A kiértékelés metrikái bináris konfúziós mátrixon működnek, ezért van szükség az átalakításra.
+%https://stackoverflow.com/questions/31324218/scikit-learn-how-to-obtain-true-positive-true-negative-false-positive-and-fal
+%TODO: konfúziós mátrix az elejére
+
+A metrikák alkalmazásához az \emph{evaluation\_summary} metódus használható. Ez az előzőekben elkészített eredmény objektumot várja, annak értékeit összegzi, így megkapja hogy az összes teszt során összesen hány darab valódi pozitív (TP), hamis pozitív (FP), valódi negatív (TN) és hamis negatív (FN) eredmény lett. A metódus kulcs-érték párokként visszaadja a k2 tanításával foglalkozó tanulmányban \cite{aghdam2019some} szereplő metrikák eredményeit. Ezek a valódi pozitív, hamis pozitív, valódi pozitív arány, hamis felfedezési arány, pozitív prediktív érték, pontosság, Matthews korrelációs együttható és az F-pontszám. Ezek mindegyike kiszámolható a kapott négy adatból, és összehasonlíthatóvá teszi a Bayes-hálókat.
+
+Valódi pozitív arány $TPR = \frac{TP}{TP + FN}$, hamis felfedezési arány $= \frac{FP}{FP + TP}$,
+pozitív prediktív érték $PPV = \frac{TP}{TP+FP}$, pontosság $= \frac{TP + TN}{TP + FP + TN + FN}$,
+Matthews korrelációs együttható $= \frac{TP \cdot TN-FP \cdot FN}{(TP + FP)(TP + FN)(TN + FP)(TN + FN)}$,
+F-pontszám $= 2 \cdot \frac{PPV \cdot TPR}{PPV + TPR}$.
+
+\section{Modulok}
