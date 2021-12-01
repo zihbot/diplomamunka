@@ -44,4 +44,18 @@ Az eredeti tanulmány szerint érdemes a gyerekektől indulva iterálni, ám a f
 Az iterációt addig futtatjuk, ameddig a diszkretizációs elv nem konvergál.
 
 \section{Struktúra tanulás}
-Egy több változót diszkretizáló lépés után beiktathatunk egy struktúra tanuló lépést, így minden előzetes információ nélkül is készíthetünk az adatokból Bayes-hálót. Ezeket a lépéseket a háló konvergenciájáig, vagy megadott számú alkalommal futtatjuk.
+A diszkretizációs eljárás a \emph{k2} algoritmust alkalmazza struktúra tanulásához. Ez az algoritmus heurisztikus kereséssel találja meg a legnagyobb valószínűségű Bayes-hálót a diszkrét adatsor alapján \cite{ruiz2005illustration}. Az algoritmus nem robusztus, bemenetként elvárja a változók sorrendjét, ez lesz az elkészült háló topológiai sorrendje.
+
+A k2 algoritmus pontozó függvénye:
+$$ f(i, \pi_{i}) =
+\prod_{j = 1}^{q_{i}} \frac{(r_{i} - 1)!}{(N_{ij} + r_{i} - 1)!}
+\prod_{k = 1}^{r_{i}} \alpha_{ijk}!$$
+ahol a $\pi_{i}$ a vizsgált változó szülői halmaza, $\phi_{i}$ (nem szerepel a képletben, de a többi változó magyarázatához szükséges) a vizsgált változó szüleinek összes lehetséges együttesen felvehető értéke, mely a szülők felvehető értékeinek Descartes-szorzata, $q_{i}$ a $\phi_{i}$ elemszáma, $V_{i}$ a vizsgált változó lehetséges felvehető értékei, $r_{i}$ a $V_{i}$ elemszáma, $\alpha_{ijk}$ azon esetek száma, ahol a vizsgált változó a $V_{i}$ k. értékét veszi fel, szülei pedig a $\phi_{i}$ j. értékét veszik fel, $N_{ij}$ = $\sum_{k = 1}^{r_{i}}\alpha_{ijk}$ azon esetek száma, ahol a vizsgált változó szülei a $\phi_{i}$ j. értékét veszik fel.
+
+A megadott sorrendben fut az algoritmus a változókon. Kiértékeli a vizsgált változó aktuális szüleivel az \emph{f} függvény értékét, és ezt tekinti a megtalált legjobbnak. Ezután a sorrendben a vizsgált változó előtt szereplőket lehetséges szülőnek tekinti. Kiértékeli az \emph{f} függvényt minden esetben úgy, hogy a vizsgált változó szülőhalmazához hozzáadja a szülő jelöltet. A kopott értékek közül kiválasztja a legnagyobbat, és ha ez jobb, mint a szülő jelölt nélküli érték, létrehoz egy élt a legjobb szülő jelölt és a vizsgált változó között. Ezután az új szülőhalmazhoz próbál még szülőt adni, amellyel javítható a pontszám. Ha nem talál a pontszámot javító szülőt, vagy a szülők száma eléri az arra vonatkozó korlátot (ezt alacsonyra választva a futási sebesség jelentősen növelhető), a sorrendben következő változóval folytatja.
+
+A tanulmány úgy használja fel a k2 algoritmust, hogy először az egyenlő hosszú diszkretizációs algoritmussal kapott adatsoron futtatja. Az első él hozzáadása után a Bayes-döntés alapú algoritmust futtatja az aktuális hálón, majd az új diszkretizációval kapott adatsoron folytatja a k2 futását. Minden él hozzáadása után újabb diszkretizációt végez, ameddig a k2 algoritmus nem terminál.
+
+A k2 algoritmus kezdeti sorrendjének meghatározására két ajánlatot tettek. Az első, hogy az egyszerű diszkretizációval rendelkező adatokon sok (1000 körüli) k2 futtatást végeztek véletlenszerű sorrendekkel, végül a kapott gráfok közül a legjobbnak a kiindulási sorrendjével futtatták a fő algoritmust. A másik, hogy kevesebb, (20-50) véletlenszerű sorrenddel futtatták a fő algoritmust, és a kapott gráfokból kiválasztották a legjobbat. A különbség, hogy a kiválasztást olyan hálókon végzik, amelyek egyszerű diszkretizáció alapján készültek, vagy már a Bayes-döntés alapján diszkretizált adatsor alapján. A második eset hosszabb futásidőt kíván.
+
+A Diplomamunkában a \ref{chapter:kiertekelesszintetikus}. fejezetben az információelméleti alapon meghatározott sorrenddel futtatás is vizsgálva lesz.
