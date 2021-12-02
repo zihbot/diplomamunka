@@ -255,5 +255,16 @@ Ennél jobban működik a \emph{precalculate\_probability\_table\_split\_up}. Ez
 
 Az implementáltak közül a \emph{precalculate\_probability\_table\_split\_up\_numpy} a legjobban optimalizált algoritmus. Ez a $h$ kiértékelését nem \emph{for} ciklusokkal végzi, hanem a numpy és scikit-learn függvényeit használja. Az implementáció az előző függvény alapján készült, minden \emph{for} ciklusnál a benne szereplő függvényeknek meg kellett találni a numpy implementációját, az átadott tenzorokat megfelelő formára hozni, és minden lépést külön elvégezni.
 
-Az eredmények az eredeti tanulmányhoz mellékelt \emph{data\_auto\_mpg.csv} alapján voltak értékelve. Ennek az 5. oszlopán történt a vizsgálat, melynek a példa teszt szerint a 3. oszlop a szülője, az 1. és a 7. pedig a gyereke. A definíció szerinti $H$ számítással a diszkretizáció \textbf{3 perc 9.717 másodpercig}  tartott. Ugyanez a külön táblában tárolónál \textbf{2 perc 32.736 másodpercet vett igénybe}. Végül a numpy optimalizációval készült $H$ táblával \textbf{3.664 másodperc} kellett a diszkretizációhoz. A julia-ban implementált referencia algoritmusnak ugyanehhez \textbf{14.543 másodperc}re volt szüksége. Ez egyetlen változó egyetlen diszkretizációja, a teljes algoritmus futása ennél hosszabb, de az arányok ott is megmaradnak. Ennek oka, hogy a $H$ tábla előállítása a folyamat legidőigényesebb része. Azért az 5. változó volt vizsgálva, mert ez rendelkezik szülővel és gyerekkel is, amely a kódlefedettséget biztosítja.
+Az eredmények az eredeti tanulmányhoz mellékelt \emph{data\_auto\_mpg.csv} alapján voltak értékelve. Ennek az 5. oszlopán történt a vizsgálat, melynek a példa teszt szerint a 3. oszlop a szülője, az 1. és a 7. pedig a gyereke. A definíció szerinti $H$ számítással a diszkretizáció \textbf{3 perc 9.717 másodpercig}  tartott. Ugyanez a külön táblában tárolónál \textbf{2 perc 32.736 másodpercet vett igénybe}. Végül a numpy optimalizációval készült $H$ táblával \textbf{3.664 másodperc} kellett a diszkretizációhoz. A julia-ban implementált referencia algoritmusnak ugyanehhez \textbf{14.543 másodperc}re volt szüksége, mert ott nem áll rendelkezésre hasonló optimalizálási lehetőség. Ez egyetlen változó egyetlen diszkretizációja, a teljes algoritmus futása ennél hosszabb, de az arányok ott is megmaradnak. Ennek oka, hogy a $H$ tábla előállítása a folyamat legidőigényesebb része. Azért az 5. változó volt vizsgálva, mert ez rendelkezik szülővel és gyerekkel is, amely a kódlefedettséget biztosítja.
 
+\section{Tesztelés}
+A tesztek a \emph{test} könyvtárban találhatók, a \emph{unittest} modult felhasználva készültek. A \emph{test.py} tartalmazza a MultivariateDiscretizer-t és a diszkretizációt ellenőrző teszteket. Ezek megállapítják, hogy megfelelően tölti-e be az adatokat, valamint a példa adathalmazon elvégzett diszkretizáció helyes-e. A \emph{unit\_test.py} ellenőrzi, hogy az util diszkretizációja megfelelően működik, valamint a Markov-takarót is meg tudja határozni.
+
+A tesztek futtatásához a gyökérkönyvtárban kell kiadni a követkető parancsot:
+
+\begin{lstlisting}
+    python -m unittest test.unit_test
+    python -m unittest test.test
+\end{lstlisting}
+
+Ez meghívja az unittest modult a test könyvtárban található fájlokra, és futtatja a teszteket.
