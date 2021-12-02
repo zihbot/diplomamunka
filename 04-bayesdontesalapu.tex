@@ -14,7 +14,7 @@ $$\sum_{i=1}^{k-1} -\ln{(1-\exp{(
 -L \cdot \frac{x_{\lambda_i}-x_{\lambda_{i-1}+1}}{x_{n}-x_{1}}$$
 ahol az $x_i$ az $i$. értéke a folytonos adatsornak (növekvő sorrend esetén), $\lambda_i$ a vizsgált diszkretizációs elv $i$. tartomány végpontjának indexe, $k$ az intervallumok száma, $n$ az adatok száma és $L$ egy választható együttható, amelyhez közelíteni fog az intervallumok száma.
 
-A tag értéke akkor lesz alacsony, amikor az intervallumok két végpontja közötti különbség a teljes adatsor hosszának $L$-ed része.
+A tag értéke akkor lesz alacsony, amikor az intervallumok két végpontja közötti különbség a teljes adatsor hosszának $L$-ed része. Ezzel elérhető, hogy az eredmény intervallumokból nagyjából $L$ darab legyen, hiszen minél jobban eltérnének ettől a hosszaik, annál nagyobb büntetést kapna.
 
 \section{Likelihood}
 A likelihood tag az alábbi \cite{boulle2006modl}:
@@ -32,9 +32,13 @@ A likelihood tag lényege, hogy a változó szülei, gyerekei és azok szülei l
 Elég a szülő, gyerek, gyermeki szülőket vizsgálni, hiszen ez a változó Markov-takarója, amennyiben ezek a változók rögzítettek, akkor a hálóban levő többi változótól független a vizsgált változó (a Markov-takaróján keresztül feltételesen függ a többitől). Így lehet lokálisan diszkretizálni.
 
 \section{Dinamikus programozás}
-A \textit{likelihood} tagnál felismerhető, hogy minden tagja $i=1$-től $k$-ig van összeadva, tehát minden intervallumra külön kiszámolható a szumma belső része. Valamint kiszámolható $1 \dotsc n$ minden intervallumára, és az ezekből képzett teljes és diszjunkt halmazok (amelybe olyan intervallumok kerülnek, hogy közülük $1 \dotsc n$ között minden számot pontosan egy intervallum tartalmaz) érvényes diszkretizációs elvek lesznek és minimalizálható rajtuk az eredeti feltétel. Mivel az intervallumokra külön kiszámoltuk a \textit{likelihood} "belső" részét (legyen $h$), ezek összege adja meg a diszkretizációs elv \textit{likelihood}ját.
+A \textit{likelihood} tagnál felismerhető, hogy minden tagja $i=1$-től $k$-ig van összeadva, tehát minden intervallumra összegezve van. Ez az összegzés kiemelhető. A $k.$ intervallumba eső összeget, amelynek határai legyenek $\alpha_{k}$ és $\beta_{k}$, jelölje $h(\alpha_{k}, \beta_{k})$. Ekkor a posterior tag $\sum_{i = 1}^{k} h(\alpha_{k}, \beta_{k})$.
 
-Ez egy dinamikus programozási feladat, eltárolhatjuk minden értékpár közt a $h$-t, és kiválasztjuk $O(n^2)$ időben a minimális értékű halmazt, amely a teljes $1 \dotsc n$ tartományt pontosan lefedi.
+Az eredeti minimalizálandó feladat szerint az intervallumok határait keressük. Az első intervallum $X_{1}$-től kell induljon, az utolsónak $X_{n}$-nél kell befejeződni. Minden (kivéve az első) intervallum kezdete az előző vége utáni elem. Ezek a kényszerek a diszkretizációs elvvel szemben támasztott követelmények.
+
+Dinamikus programozási feladattá úgy alakítható át, hogy minden $x_{0}, x_{\psi}$ érték között megállapítjuk a legjobb diszkretizációt, és az arra adott becslést. Sorban haladva az $x$ egyedi értékein ($\delta$) megállapítható, hogy a korábbi pontok közül ($\gamma$) az $x_{0} \dots x_{\gamma}$ becslésének és a $[x_{\gamma + 1}, x_{\delta}]$ becslésének összege mikor maximális, mert ez a diszkretizáció a legvalószínűbb. Fontos, hogy a $x_{0} \dots x_{\gamma}$ nem egyetlen diszkretizációs intervallum, hanem arra már meg van állapítva a diszkretizáció, és el van tárolva az arra adott becslés. A $[x_{\gamma + 1}, x_{\delta}]$ viszont biztosan egy intervallum, hiszen ha lenne egy $\phi \mbox{ ahol } \gamma < \phi < \delta$ határpont, ami jobb értéket ad, azt a $x_{0} \dots x_{\phi}$ vizsgálatakor meg fogjuk találni. A végeredmény az $x_{0}, x_{n}$ között megtalált legjobb diszkretizáció.
+
+Ilyen módszerrel történő keresésnél a $h$ minden két adatpont közötti értéke előre kiszámolható, és eltárolható a $H$ táblában. Ez a dinamikus programozási feladatot meggyorsítja, mert a becslés számolásánál a posterior rész kiolvasható ebből a táblából.
 
 \section{Több változó diszkretizálása}
 Ha az adatok közt több folytonos változó van, kezdetben mindegyiket L egyenlő számú adatot tartalmazó intervallumra bontjuk, tehát az \textit{Egyenlő mintaszámú intervallumok elve} szerint diszkretizáljuk,  majd iterálunk a folytonos változókon. Az algoritmus futtatása olyan adatsoron történik, amelyben a kiválasztott változó folytonos, minden más változó diszkrét vagy az aktuálisan legjobb módon diszkretizált. Így a kiválasztott folytonos változóra megkapjuk a jelenleg legmegfelelőbb diszkretizációt.

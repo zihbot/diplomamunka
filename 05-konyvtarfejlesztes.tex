@@ -80,7 +80,7 @@ A hibalehetőségek száma, gyakorisága és azok kezelésének lehetőségeit f
 
 \begin{enumerate}[resume]
     \descitem{Belső hibák} A belső hibákat kapja el, logolja és csak saját hibákat dobjon. Ezzel elérhető, hogy a helyben kezelhető hibák ne okozzák az alkalmazás futásának a végét.
-    \descitem{Determináltság} A futtatott algoritmus determinisztikus. Legyen teszt, amely ellenőrzi, hogy ugyanarra a bemenetre ugyanazt az eredményt adja.
+    \descitem{Determináltság} A futtatott algoritmus legyen determinisztikus
     \descitem{Diszkretizáció hiba} A diszkretizáció során fellépő hibát kezelje úgy, hogy az eredeti diszkretizációt megtartja.
 \end{enumerate}
 
@@ -146,7 +146,7 @@ Az egyenlő hosszú intervallumok esetében a változó értékeinek minimumát 
 
 A kezdeti diszkretizáció meghatározása után, amennyiben nincsen kezdeti háló struktúra megadva, a beállított struktúra tanuló algoritmussal, valamint a diszkretizációs elv által meghatározott diszkrét adatsorral fut a struktúra tanulás. Ezt azért végzi el, hogy legyen egy kiindulási struktúra. A kezdeti struktúra a \emph{graph} attribútumban van eltárolva, \emph{networkx.DiGraph} \footnote{https://networkx.org/documentation/stable/reference/classes/digraph.html} típusú objektumként.
 
-\section{Tanítás}
+\subsection{Tanítás}
 A példányosítás után a kitöltött attribútumokat meg lehet vizsgálni, felül lehet írni, ezért a tanítás külön lépésben szerepel. Emellett ha nem szükséges a diszkretizáció - struktúra tanulás lépések ismételgetése, (például egyváltozós diszkretizációt kell csak alkalmazni,) a példányosítás után rendelkezésre is áll a betanított Bayes-háló, nem szükséges semmilyen tanító lépést meghívni.
 
 A tanítás a \emph{fit} függvény meghívásával indítható. Paraméterként a maximális futtatások számát várja. Ennek jelentése algoritmusonként eltér, de arra szolgál, hogy a meghatározott számú iteráció után mindenképp leálljon, ne kerüljön végtelen ciklusba. A meghívás után a beállított struktúra tanuló algoritmus alapján folytatódik a futás.
@@ -185,6 +185,8 @@ pozitív prediktív érték $PPV = \frac{TP}{TP+FP}$, pontosság $= \frac{TP + T
 Matthews korrelációs együttható $= \frac{TP \cdot TN-FP \cdot FN}{(TP + FP)(TP + FN)(TN + FP)(TN + FN)}$,
 F-pontszám $= 2 \cdot \frac{PPV \cdot TPR}{PPV + TPR}$.
 
+%TODO: szekvencia diagram
+
 \section{Modulok}
 Ez a rész tartalmazza MultivariateDiscretizer melletti modulok implementációinak leírását. Ezekben nincsen osztály definiálva, csak kiajánlott függvények, amelyek a csomag elsődleges funkcióján kívül is használhatók, rendezett csoportokban.
 
@@ -212,11 +214,41 @@ A \emph{markov\_blanket} egy gráf és egy változó azonosítója alapján kike
 
 A \emph{largest\_markov\_cardinality} végigmegy a kapott változó Markov-takaróján, és kiválasztja a legnagyobb kardinalitású számosságát.
 
-A \emph{preference\_bias} a k2 algoritmust pontozó algoritmus. A pontszámot ez az \emph{f} függvény adja, amint a \ref{chapter:bayesdontesalapu}. fejezetben ki van fejtve:
+A \emph{preference\_bias} a k2 algoritmust pontozó algoritmus. A pontszámot ez az \emph{f} függvény adja, ami a \ref{chapter:bayesdontesalapu}. fejezetben ki van fejtve:
 $$ f(i, \pi_{i}) =
 \prod_{j = 1}^{q_{i}} \frac{(r_{i} - 1)!}{(N_{ij} + r_{i} - 1)!}
 \prod_{k = 1}^{r_{i}} \alpha_{ijk}!$$
 Amennyiben a változó szülőinek száma 0, akkor létrehoz egy olyan szülőt, melynek minden értéke egyforma. Ez a képlet alkotójának is az elképzelése \cite{cooper1992bayesian}. Az implementáció a numerikus stabilitás érdekében a függvény logaritmáltját számolja, így a szorzatból összeg lesz. Ez az eredményeken nem változtat, mivel a természetes alapú logaritmus szigorúan monoton növekvő, és a kapott pontszámok csak egymással vannak összehasonlítva. A faktoriális logaritmusa emellett átírható $\Gamma$ függvényes alakba.
 $$ ln(n!) = ln(\Gamma(n + 1))$$
-Ennek segítségével a scikit-learn \emph{gammaln} \footnote{https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.gammaln.html} függvénye is használható. Ez pedig a numpy mátrixokon sokkal nagyobb sebességgel képes a műveletet elvégezni, mint egy elemenkénti megvalósítás \cite{smith2015cython}.
+Ennek segítségével a scikit-learn \emph{gammaln} \footnote{https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.gammaln.html} függvénye is használható a pontszám kiszámítására. Ez pedig a numpy mátrixokon sokkal nagyobb sebességgel képes a műveletet elvégezni, mint egy elemenkénti megvalósítás \cite{smith2015cython}, mert a háttérben futó \emph{C} nyelven írt kódban történik az iteráció. Ezért az implementációban nagyon fontos szerepet kapott, hogy minden műveletet a numpy és scikit-learn függvények végezzenek, a függvény kódjában a lehető legkevesebb \emph{for} ciklus szerepeljen.
 
+A \emph{preference\_bias\_full} a teljes gráfnak határozza meg az értékét a k2 pontozó algoritmusa alapján. Minden változóra meghívja az előző pontozást, az eredményeket pedig összeadja. Azért elegendő ez a művelet, mert a pontszám logaritmáltját adja vissza. Ez az összeg a gráf értéke.
+
+Az \emph{entropy} egy diszkrét adatsor változója Shannon entrópiájának kiszámolására szolgál. Ennek értéke:
+$$ H(\mathcal{X}) = -\sum_{i = 1}^{n} p(x_{i}) \cdot log(p(x_{i}))$$
+tehát a diszkrét változó értékének előfordulási valószínűségei és logaritmáltjaik szorzatának összege. Az implementáció természetes alapú logartimust használ, az eredmények összehasonlításra szolgálnak, így bármilyen egynél nagyobb logaritmus alap megfelelő. A sebesség itt is lényeges, így numpy függvényekkel vannak a számítások megoldva. Együttes entrópia számolására is képes, amennyiben tömb helyett mátrixot kap bemenetként.
+
+A \emph{relative\_entropy} egy diszkrét adatsor több változója relatív Shannon entrópiájának kiszámolására szolgál. Ez megkapható:
+$$ H(\mathcal{Y} | \mathcal{X}) = -\sum_{i = 1}^{n}\sum_{j = 1}^{m} p(x_{i}, y_{y}) \cdot log(\frac{p(x_{i}, y_{y})}{p(x_{i})})
+= H(\mathcal{Y}, \mathcal{X}) - H(\mathcal{X})$$
+Az implementációban az előző függvény meghívása történik először az együttes entrópia kiszámolására, majd a feltétel entrópiájának számolására. Ezért a feltételben itt is lehetséges több változó szerepeltetése.
+
+A \emph{mutual\_information} a kölcsönös információt számolja ki az egyik változó entrópiája és a másikkal vett feltételes entrópia különbségeként. AZ ezt használó algoritmus vagy lassan fut vagy nem determinisztikus, ezért ez nem volt használva.
+
+\subsection{Structure}
+A \emph{learn\_structure} egységesíti a pomegranate beépített struktúra tanuló algoritmusai, valamint a k2 algoritmus futtatását. A k2 esetén a struktúra tanítás utána a pomegranate \emph{from\_structure} \footnote{\url{https://pomegranate.readthedocs.io/en/latest/BayesianNetwork.html\#pomegranate.BayesianNetwork.BayesianNetwork.from\_structure}} algoritmussal készíti el a Bayes-hálót. Így minden esetben az elkészült és betanított Bayes-hálóval tér vissza, de egyedi struktúra tanulást is lehetővé tesz.
+
+A \emph{k2\_order\_mutual\_information} és a \emph{k2\_order\_entropies} egyaránt Aghdam et al. \cite{aghdam2019some} cikkében szereplő algoritmusok implementációja. Ezek információelméleti alapon keresik ki a legmegfelelőbb, k2 tanuláshoz szükséges topológiai sorrendet. Az első esetében a kezdő változó az eredeti leírásban nincsen meghatározva, az implementációban a legkisebb entrópiájú változó. Ezután a legutóbb hozzáadott változóval vett legnagyobb együttes információval rendelkező változót adja a sorrend végéhez. Mivel a kezdő változó nem meghatározott, az algoritmus használatára nem került sor. A második függvény relatív entrópiák szerinti sorrend eredménye a \ref{chapter:kiertekelesszintetikus}. és \ref{chapter:kiertekelesvalos}. fejezetekben megjelenik. Ez az eredeti algoritmus szerint is a legkisebb entrópiájú változóval kezd, majd mindig azt adja a sorrend végéhez, amelyikhez a feltéve a korábbi változókat a feltételes entrópia a legalacsonyabb. \emph{A, B, C} változók esetében az algoritmusok így futnak:
+
+A kölcsönös információ alapúnál legyen B-ből indítva. Ekkor az $MI(B, A)$ és az $MI(B, C)$ közül a nagyobbat választjuk, most legyen ez az $MI(B, A)$. Az $MI$ a kölcsönös információ meghatározására szolgáló függvény. Ekkor az $A$-t adjuk a sorhoz, és az $MI(A, C)$ közül kell választani. Mivel ez egyedül van, így a $C$ is hozzáadódik, a végső sorrend \emph{B, A, C}.
+
+A feltételes entrópia alapúnál keressük a $H(A)$, $H(B)$ és $H(C)$ közül a legkisebbet. Ez legyen a $H(C)$, így a $C$ a sorrend első eleme. Ezután a $H(A|C)$ és $H(B|C)$ közül kell a legkisebb. Ez legyen a $H(A|C)$, így az $A$ a következő elem. Végül a $H(B|A,C)$ közül a legkisebb az egyetlen, így $B$ az utolsó elem. A végső sorrend \emph{C, A, B}.
+
+A \emph{learn\_k2\_structure} a k2 algoritmus implementációja. Annyi bővítés szerepel benne a \ref{chapter:bayesdontesalapu}. fejezetben ismertetetthez képest, hogy megadható a p\_step paraméter, amely az aktuális gráfállapotot tartalmazza. Ilyenkor ebből az állapotból folytatódik az algoritmus futása és új él hozzáadása után azonnal visszatér.
+
+\subsection{Discretization}
+Ez a modul tartalmazza a Bayes-döntés alapú diszkretizációs algoritmust. A MultivariateDiscretizer által használt függvény a \emph{discretize\_one}. Ez bemenetként megkapja a teljes diszkrét adatsort, a modell hálóját, a vizsgált változó folytonos adatsorát, valamint a célt az intervallumok számára (\emph{L}). A dinamikus programozással előre kiszámolható \emph{H} táblát (mely az ismertetett $h$ értékeket tartalmazza minden adatpont között) elkészítő függvényt felhívja. Erre 3 különböző implementáció is készült, amely a későbbiekben lesz bemutatva. A prior tag kiszámolása numpy tömbműveletekkel történik, mert is lényeges a futási sebesség. Ezután a tanulmányban leírt módon történik az összegzés és a diszkretizációs határok keresése a prior és a posterior tag alapján.
+
+A \emph{H} tábla kiszámítására az első függvény a \emph{precalculate\_probability\_table\_as\_definition}. Ez a \emph{H} táblát úgy állítja elő, hogy végigmegy a folytonos értékekből képzett párokon, és képlet alapján mindegyikre kiszámolja az eredményt, majd ezeket eltárolja. Ez nagyon lassú folyamat, mert minden párnál a köztük lévő adatokat ki kell olvasni az adatsorból és processzor intenzív számításokat végezni (logaritmus, faktoriális).
+
+Ennél jobban működik a \emph{precalculate\_probability\_table\_split\_up}.
