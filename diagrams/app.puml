@@ -1,15 +1,25 @@
 @startuml structure
 scale 3
 
+folder test as test_folder {
+    [test] as test
+    [unit_test] as ut
+}
+
+package bediscretizer {
 [MultivariateDiscretizer] as md
 [discretization] as disc
 [util] as util
 [structure] as stru
+}
 
 md --> disc
 md --> util
 md --> stru
 stru --> util
+
+test --> md
+ut --> util
 
 @enduml
 @startuml markov-blanket
