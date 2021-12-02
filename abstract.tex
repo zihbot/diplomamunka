@@ -8,8 +8,13 @@
 %----------------------------------------------------------------------------
 \chapter*{Kivonat}\addcontentsline{toc}{chapter}{Kivonat}
 
+A Bayes-hálók tanításához diszkretizált adatsorra van szükség. Ehhez az egyváltozós diszkretizációs eljárások nem megfelelőek, mert ezekkel az adat változói közti összefüggések eltűnhetnek. A többváltozós diszkretizációs módszerek futásideje hosszú. Egy gyorsabb javasolt algoritmus implementációját valósítja meg, mutatja be és értékeli ki a Diplomamunka.
 
+Az elkészült implementáció futásidőre lett optimalizálva, és gyorsabb, mint ugyanennek az algoritmusnak a referenciaként szolgáló megvalósítása. Az elkészült csomaggal adatbányászok dolgozhatnak, úgy készült el, hogy más csomagokhoz hasonló interfészt biztosítson.
 
+A megvalósított algoritmus egyszerű adatsoron kiértékelve nem ér el jobb eredményt, mint ami egyváltozós diszkretizációval elérhető, ám nagyobb változószámú nem egyenletes eloszlású változókat tartalmazó adatsorokon megmutatkozik az előnye. Bemutatásra kerül egy információelméleti módszerekkel gyorsított módosítása az eredeti algoritmusnak, mely eredményeiben nem tér el jelentősen az eredetitől, de nagyobb sebesség elérésére képes.
+
+Kiderült, hogy algoritmus laboratóriumi paraméterek diszkretizálására való használata korlátos. A referencia tartományok előállítására nem működik, de az algoritmussal készült Bayes-háló predikcióra jól használható.
 
 \vfill
 \selectenglish
