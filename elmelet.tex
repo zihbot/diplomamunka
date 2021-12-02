@@ -11,15 +11,15 @@ A minimális hosszúságú leírás elve (MDL) azt mondja ki, hogy egy adathalma
 
 Az információ sűrűségének jellemzésére megfelelő mutató az (információ) entrópia. Így a feladatot megfogalmazhatjuk úgy is, hogy minimalizálandó a diszkretizációs elv szerint a modell entrópiája.
 
-Ennek megoldása $O(n^3)$ időben futtatható, ahol az $n$ a tanító adatok száma. 
+Ennek megoldása $O(n^3)$ időben futtatható, ahol az $n$ a tanító adatok száma.
 
 \subsection{Bayes döntés}
-A dsizkretizációs elv kiválasztható úgy, hogy mindegyikre kiszámoljuk \textit{a posteriori} becsléssel, mennyire valószínűek a megadott adatokon, és ezek közül kiválasztjuk a legnagyobbat. A Bayes-tétel miatt ez felírható a likelihood és a prior szorzataként.
-$$ \argmax_{\Lambda}{P(\Lambda | D)} = 
+A diszkretizációs elv kiválasztható úgy, hogy mindegyikre kiszámoljuk \textit{a posteriori} becsléssel, mennyire valószínűek a megadott adatokon, és ezek közül kiválasztjuk a legnagyobbat. A Bayes-tétel miatt ez felírható a likelihood és a prior szorzataként.
+$$ \argmax_{\Lambda}{P(\Lambda | D)} =
 \argmax_{\Lambda}{P(D | \Lambda) \cdot P(\Lambda)} $$
 ahol $\Lambda$ a diszkretizációs elv, $D$ az adat.
 
 Az \textit{a posteriori} becslés esetén a prior megfelelő megválasztása kulcsfontosságú. A könnyebb programozhatóság kedvéért a valószínűség helyett annak negatív logaritmáltját érdemes minimalizálni. Mivel a logaritmus szigorúan monoton növekvő függvény, ez nem változtat az eredményen, de a lebegőpontos számábrázolás miatt pontosabban számolható számítógépen.
 
-Mivel megoldható a feladat dinamikus programozással (lehet építeni a korábban kiszámolt valószínűségekre), így az futásidő $O(n^2)$-re csökken, ahol $n$ a tanító adatok száma.
+Mivel megoldható a feladat dinamikus programozással (lehet építeni a korábban kiszámolt valószínűségekre), így a futási idő $O(n^2)$-re csökken, ahol $n$ a tanító adatok száma.
 

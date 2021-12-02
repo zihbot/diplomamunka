@@ -47,7 +47,7 @@ Az előzetes információk nélküli tanulás esetén 50 véletlenszerű topoló
 
 Az ismert topológiai sorrend melletti futás nagyon gyors volt. Az inicializáció és a végleges diszkretizáció között 1,937 másodperc telt el.
 
-Az automatikus tanulás során az eltelt időre a korábbi ötvenszerese várható, hiszen azt az algoritmust futtatjuk ötvenszer. A 2 perc 11 másodperces futásidő ennél lényegesen hosszabb (2s * 20 = 100s = 1m 40s). Ennek oka, hogy az ezalatt tanult bayes-hálók bonyolultabbak, mint az ismert sorrendű egy szülős felépítése. Az algoritmus pedig a közös gyerek szüleit lassan diszkretizálja. A véletlenszerű struktúrák esetén pedig ilyenek könnyen előfordulhatnak.
+Az automatikus tanulás során az eltelt időre a korábbi ötvenszerese várható, hiszen azt az algoritmust futtatjuk ötvenszer. A 2 perc 11 másodperces futási idő ennél lényegesen hosszabb (2s * 20 = 100s = 1m 40s). Ennek oka, hogy az ezalatt tanult bayes-hálók bonyolultabbak, mint az ismert sorrendű egy szülős felépítése. Az algoritmus pedig a közös gyerek szüleit lassan diszkretizálja. A véletlenszerű struktúrák esetén pedig ilyenek könnyen előfordulhatnak.
 
 \begin{figure}[htp]
     \centering
@@ -77,7 +77,7 @@ Az egyváltozós diszkretizáció után kapott diszkrét adatsor felhasználhat�
 \end{table}
 
 
-Az egyenlő széles és az egyenlő mintaszámú diszkretizációk eredményét a \ref{tab:eredmeny-egyvaltozos}. táblázat ismerteti. Az intervallum határok között kisebb eltérések láthatók. Általában a referencia vágópontjai alacsonyabbak, mint az egyváltozós vágások. A futásidő rendkívül rövid, mivel egy diszkretizációs és egy struktúra tanuló lépés fut csak. Minden esetben 0.071 másodperc körüli idő alatt elkészült a Bayes-háló.
+Az egyenlő széles és az egyenlő mintaszámú diszkretizációk eredményét a \ref{tab:eredmeny-egyvaltozos}. táblázat ismerteti. Az intervallum határok között kisebb eltérések láthatók. Általában a referencia vágópontjai alacsonyabbak, mint az egyváltozós vágások. A futási idő rendkívül rövid, mivel egy diszkretizációs és egy struktúra tanuló lépés fut csak. Minden esetben 0.071 másodperc körüli idő alatt elkészült a Bayes-háló.
 
 \begin{figure}[htp]
     \centering
@@ -132,7 +132,7 @@ A legnagyobb kardinalitású diszkrét változó ebben az adatsorban 8 értéket
 \subsection{Korábbi kísérletek}
 A korábbi kísérleteket megismételve ezen az adatsoron látható, hogy itt sokkal jobban teljesített a referencia algoritmus (\ref{tab:kiertekeles-lakasar}. táblázat). Az ismert topológiai sorrend a \emph{D, E, G, B, H, C, I, M, N, J, A, F, K, L} lett, mert a leírt algoritmus szerint ez lett a legjobb. Azért térhet el a tanulmányban bemutatottól, mert csak 1000 véletlenszerű sorrend közül választja a legjobbnak ítéltet, 14 változó esetén pedig a lehetséges permutációk száma $14! \simeq 8.72 \cdot 10^{10}$.
 
-Az ismert sorrenden az algoritmus 193.334 másodperc alatt, azaz 3 perc 13 másodperc alatt készítette el a betanított Bayes-hálót. Ez az időnövekedés egyrészt a mintapontok számának tudható be, hiszen az algoritmus $O(n^2)$ komplexitású a rekordok számára nézve. Másrészt a változók száma is nőtt, amely szintén $O(m^2)$ mértékben növeli a futásidőt. A k2 algoritmusban a szülők száma 3-ban maximalizálva volt, ezért nem magasabb rendű a komplexitás.
+Az ismert sorrenden az algoritmus 193.334 másodperc alatt, azaz 3 perc 13 másodperc alatt készítette el a betanított Bayes-hálót. Ez az időnövekedés egyrészt a mintapontok számának tudható be, hiszen az algoritmus $O(n^2)$ komplexitású a rekordok számára nézve. Másrészt a változók száma is nőtt, amely szintén $O(m^2)$ mértékben növeli a futási időt. A k2 algoritmusban a szülők száma 3-ban maximalizálva volt, ezért nem magasabb rendű a komplexitás.
 
 Az automatikus tanulás során tízszer futott véletlenszerű topológiai sorrenddel a referencia algoritmus. Ezek közül a legjobbnak a \emph{B, F, G, M, N, J, C, I, K, D, L, A, H, E} sorrend bizonyult.
 
@@ -164,12 +164,12 @@ A két változó együttes eloszlása a \ref{fig:housing_eloszlas}. ábrán lát
 
 Az eredmények között az egyenlő hosszú diszkretizáció a \emph{greedy} és a \emph{Chow-Liu} struktúra tanuló algoritmussal szerepel, az egyenlő mintaszámú pedig csak a \emph{Chow-Liu}-val. Az egyenlő mintaszámból tanulható esetek eredménye nagymértékben hasonló, az \emph{exact} algoritmus pedig mindkét esetben hasonló a \emph{greedy} algoritmushoz.
 
-A futásidők itt jelentősen eltérnek. A \emph{Chow-Liu} algoritmus a kész struktúrával minden esetben 1 másodpercen belül visszatért, míg a másik kettőnek ehhez 3 percnél is több kellett. Ennek oka, hogy a \emph{Chow-Liu} a változók közötti függetlenséget statisztikai alapon gyorsan megállapítja, míg a többi algoritmusnak el kell végeznie a keresést, mely sok változónál és magas kardinalitásnál időigényes.
+A futási idők itt jelentősen eltérnek. A \emph{Chow-Liu} algoritmus a kész struktúrával minden esetben 1 másodpercen belül visszatért, míg a másik kettőnek ehhez 3 percnél is több kellett. Ennek oka, hogy a \emph{Chow-Liu} a változók közötti függetlenséget statisztikai alapon gyorsan megállapítja, míg a többi algoritmusnak el kell végeznie a keresést, mely sok változónál és magas kardinalitásnál időigényes.
 
 \subsection{K2 algoritmus kezdeti sorrend}
 Ekkora változószám mellett és ilyen hosszú tanítási időkkel a Bayes-döntés alapú diszkretizáció lassú. Vagy nem talál meg egyetlen elfogadható topológiai sorrendet sem, mert túl keveset próbál ki, vagy a tanítási idő nő meg jelentősen. A \emph{Chow-Liu} gyors futásánál látható, hogy az információelméleti megközelítés ilyenkor is magas sebességet tud elérni. Ezért készültek olyan módszerek, melyek a topológiai sorrendet információelméleti alapon határozzák meg, és az így kapott sorrenddel futtatják a \emph{k2} algoritmust \cite{aghdam2019some}.
 
-A feltételes entrópia alapú sorrend meghatározás implementálva van a \emph{bediscretizer} csomagban. Ezt használva a lakásár adatsoron a \emph{D, E, C, I, K, J, H, G, N, M, F, B, L, A} topológiai sorrend lesz az eredmény. Ezután futtatható a k2 algoritmus. A teljes futásidő 112.426 másodperc, tehát 1 perc 52 másodperc. Ez jobb, mint az ismert sorrenddel futó k2, aminek az oka, hogy kevés több szülős változó van a Bayes-hálóban. Ez nem az algoritmuson múlik, lehetett volna fordítva is, de az időkülönbséget magyarázza.
+A feltételes entrópia alapú sorrend meghatározás implementálva van a \emph{bediscretizer} csomagban. Ezt használva a lakásár adatsoron a \emph{D, E, C, I, K, J, H, G, N, M, F, B, L, A} topológiai sorrend lesz az eredmény. Ezután futtatható a k2 algoritmus. A teljes futási idő 112.426 másodperc, tehát 1 perc 52 másodperc. Ez jobb, mint az ismert sorrenddel futó k2, aminek az oka, hogy kevés több szülős változó van a Bayes-hálóban. Ez nem az algoritmuson múlik, lehetett volna fordítva is, de az időkülönbséget magyarázza.
 
 \subsection{Eredmény}
 

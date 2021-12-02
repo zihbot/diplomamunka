@@ -8,9 +8,9 @@
 %----------------------------------------------------------------------------
 \chapter*{Kivonat}\addcontentsline{toc}{chapter}{Kivonat}
 
-A Bayes-hálók tanításához diszkretizált adatsorra van szükség. Ehhez az egyváltozós diszkretizációs eljárások nem megfelelőek, mert ezekkel az adat változói közti összefüggések eltűnhetnek. A többváltozós diszkretizációs módszerek futásideje hosszú. Egy gyorsabb javasolt algoritmus implementációját valósítja meg, mutatja be és értékeli ki a Diplomamunka.
+A Bayes-hálók tanításához diszkretizált adatsorra van szükség. Ezek előállításához az egyváltozós diszkretizációs eljárások nem megfelelőek, mert ezekkel az adat változói közti összefüggések eltűnhetnek. A többváltozós diszkretizációs módszerek futásideje hosszú. Egy gyorsabb javasolt algoritmus implementációját valósítja meg, mutatja be és értékeli ki a Diplomamunka.
 
-Az elkészült implementáció futásidőre lett optimalizálva, és gyorsabb, mint ugyanennek az algoritmusnak a referenciaként szolgáló megvalósítása. Az elkészült csomaggal adatbányászok dolgozhatnak, úgy készült el, hogy más csomagokhoz hasonló interfészt biztosítson.
+Az elkészült implementáció futási időre lett optimalizálva, és gyorsabb, mint ugyanennek az algoritmusnak a referenciaként szolgáló megvalósítása. Az elkészült csomaggal adatbányászok dolgozhatnak, úgy készült el, hogy más csomagokhoz hasonló interfészt biztosítson.
 
 A megvalósított algoritmus egyszerű adatsoron kiértékelve nem ér el jobb eredményt, mint ami egyváltozós diszkretizációval elérhető, ám nagyobb változószámú nem egyenletes eloszlású változókat tartalmazó adatsorokon megmutatkozik az előnye. Bemutatásra kerül egy információelméleti módszerekkel gyorsított módosítása az eredeti algoritmusnak, mely eredményeiben nem tér el jelentősen az eredetitől, de nagyobb sebesség elérésére képes.
 
@@ -25,8 +25,13 @@ Kiderült, hogy algoritmus laboratóriumi paraméterek diszkretizálására val�
 %----------------------------------------------------------------------------
 \chapter*{Abstract}\addcontentsline{toc}{chapter}{Abstract}
 
+Learning Bayesian networks needs discrete dataset. The single variable discretization methods are not suitable for creating these because those can make the dependencies of the variables disappear. The multivariate discretization methods have a long running time. This thesis implements, describes and evaluate a faster proposed algorithm.
 
+The finished implementation is optimized for running time and it is faster than the reference implementation of the same algorithm. The finished package can be used by data scientists. It provides a similar interface to other data science packages.
 
+The implemented algorithm on simple datasets produce similar results to which can be reached with single variable discretization. On datasets which contain more variables and not uniformly distributed it has an advantage and performs better. It will be shown that the algorithm can be improved with information theory based methods. It produces similar results to the original, but runs faster.
+
+The algorithm can be used for discretizing laboratory parameters with limitations. It is not able to create reference intervals but the resulting Bayesian networks can be used for predictions.
 
 \vfill
 \selectthesislanguage
