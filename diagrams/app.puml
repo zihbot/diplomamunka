@@ -39,3 +39,16 @@ G --> H
 
 
 @enduml
+@startuml pelda-bayes
+scale 3
+
+(CPU hűtés\nhiba) as A
+(Zaj) as B
+(Túlmelegedés) as C
+
+label "P(+) = 0.01\nP(-) = 0.99"
+
+A --> B : "P(+ | +) = 0.70\nP(- | +) = 0.30\nP(+ | -) = 0.35\nP(- | -) = 0.65"
+A --> C : "P(+ | +) = 0.80\nP(- | +) = 0.20\nP(+ | -) = 0.10\nP(- | -) = 0.90"
+
+@enduml
