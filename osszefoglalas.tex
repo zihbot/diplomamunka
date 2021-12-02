@@ -1,13 +1,15 @@
 %----------------------------------------------------------------------------
 \chapter{Összefoglalás}
 %----------------------------------------------------------------------------
+A Diplomamunka célja a jelenlegi diszkretizációs eljárások bemutatása, egy új eljárás implementálása és ennek kiértékelése szintetikus és valós adatokon volt.
 
-A Diplomatervezés 1. tárgy során elkészítettem az ismertetett modul implementációját, valamint a Diplomamunkám néhány fejezetét elkészítettem. Ezek még bővítve lesznek, illetve a szintetikus és valós adatsoron történő kiértékelés még az elkészült Diplomamunka részét fogja képezni.
+Először ismertette a szükséges alapismereteket, kezdve a statisztikai elnevezésektől a bayesiánus valószínűségelmélet bemutatásán át a javasolt algoritmusig. Az új eljárást bemutatta, valamint a lépéseinek értelmezte az okait is.
 
-A Diplomamunka bemutat és megvalósít egy többváltozós diszkretizációs algoritmust. A bemutatás tartalmazza a megértéshez szükséges alapfogalmak magyarázatát, valamint a Bayes-elmélet azon részleteit, melyet a Bayes-hálók vagy az ismertetett algoritmus felhasznál.
+Ezután az elkészült implementáció következett. Ebben ismertette az implementálás során szem előtt tartott célokat. Bemutatta az implementáció felépítését és működését. Majd a belső modulokban elérhető függvények ismertetése történt meg. Végül kiértékelte az implementáció eredményét, annak az elsődleges célja sikeres volt, mivel gyorsabban fut, mint az eredeti tanulmányban megjelent referencia. Emellett robusztusabb is és másfajta mérések is végezhetők a csomaggal.
 
-Az ismertetett algoritmust egy modul részeként teszi könnyen felhasználhatóvá. A modul nyílt forráskódú, az elérés megtalálható a Függelékben. A használatát az \ref{chapter:modul}. fejezet írja le.
+Végül a különböző adatsorokkal való kiértékelés következett. Elsőként a szintetikus adatokon látható volt, hogy az egyszerű adatsoroknál egy egyváltozós diszkretizációs algoritmus is tud olyan eredményt elérni, mint a javasolt algoritmus. Másodikként egy összetettebb adatsoron megismerhetővé vált az előnye. Itt sikerült olyan eljárást találni a bemeneti topológiai sorrend meghatározására, mellyel hasonló eredmény elérhető, mint a referencia, de nagyobb sebességgel. Harmadikként egy szív- és érrendszeri kockázatot vizsgáló modellen kiderült, hogy a laboratóriumi diagnosztikában használt referencia intervallumok kevéssé határozhatók meg a módszer segítségével. Negyedszer az is bebizonyosodott, hogy a laboratóriumi paraméterekre is tud olyan diszkretizációt meghatározni, mellyel a Bayes-háló alapú predikció működőképes.
 
-%Továbbfejlesztés
-%Mutual information eredeti folytonos adatsoron
-%nem működő fit-es függvények más adatsorokon.
+\section{Tovább haladási lehetőségek}
+A k2 algoritmusnak szüksége van egy topológiai sorrendre a futáshoz. Ennek meghatározása információelméleti módszerekkel bemutatásra került és működőképesnek bizonyult. Ám az információ entrópia meghatározásához a kezdeti diszkretizációs elv alapján készült diszkrét adatsor volt szolgáltatva, mert az ehhez szükséges algoritmus leírása diszkrét adatokat várt el. Ez érthető, hiszen a Bayes-háló struktúrájának meghatározásához általában ilyen adat áll rendelkezésre. Ám jelenleg pont a diszkretizálás a cél, ezért rendelkezésünkre áll magasabb információ tartalmú folytonos adatsor is. Az információelméletben folytonos adatsoroknak is meghatározható az entrópiája, ezért lehetne próbálkozni a folytonos adatokon meghatározott entrópiával is, valamint az így meghatározott feltételes entrópiával és együttes információval. A nehézség, hogy ekkor vegyesen lennének benne folytonos és diszkrét változók, de lehetséges, hogy így jobb topológiai sorrend lenne elérhető.
+
+Másik irány az implementációnál bemutatott, jelenleg nem használt algoritmusok ötletének fejlesztése. A referencia algoritmusban a k2-es élhozzáadás után diszkretizáció következik. Más struktúra tanuló algoritmusoknál is tesztelhető, hogy új él után diszkretizációs lépést futtassunk. A Diplomamunka során implementált ilyen típusú próbálkozás rossz működésének oka lehet, hogy mindig csak a teljesen betanított hálóból tudott élt átvenni. Saját implementációnál elérhető lenne, hogy egy él megtalálása után azonnal visszatérjen, hogy lehetőséget adjon a diszkretizációra.

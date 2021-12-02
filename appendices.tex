@@ -2,8 +2,8 @@
 \appendix \label{chapter:függelék}
 %----------------------------------------------------------------------------
 \chapter*{Függelék}\addcontentsline{toc}{chapter}{Függelék}
-\setcounter{chapter}{6}  % a fofejezet-szamlalo az angol ABC 6. betuje (F) lesz
-\setcounter{equation}{0} % a fofejezet-szamlalo az angol ABC 6. betuje (F) lesz
+\setcounter{chapter}{6}  % a fő fejezet-számláló az angol ABC 6. betűje (F) lesz
+\setcounter{equation}{0} % a fő fejezet-számláló az angol ABC 6. betűje (F) lesz
 \numberwithin{equation}{section}
 \numberwithin{figure}{section}
 \numberwithin{lstlisting}{section}
@@ -23,15 +23,15 @@
   numberstyle=\tiny\color{codegray},
   stringstyle=\color{codepurple},
   basicstyle=\ttfamily\footnotesize,
-  breakatwhitespace=false,         
-  breaklines=true,                 
-  captionpos=b,                    
-  keepspaces=true,                 
-  numbers=left,                    
-  numbersep=5pt,                  
-  showspaces=false,                
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
   showstringspaces=false,
-  showtabs=false,                  
+  showtabs=false,
   tabsize=2
 }
 
@@ -39,6 +39,7 @@
 Az implementáció során létrehozott nyílt forráskódú kód elérhető az alábbi linken: \\ \url{https://github.com/zihbot/tobbvaltozos-diszkretizacio}
 
 \section{Egyszerű példa} \label{appendix:simpleexample}
+Az implementáció használata az Iris adatsoron, ismert topológiai sorrend alapján
 \begin{lstlisting}
 import bediscretizer
 import sklearn.datasets
@@ -46,6 +47,6 @@ import sklearn.datasets
 iris = sklearn.datasets.load_iris()
 data = bediscretizer.util.concat_array(iris['data'], iris['target'])
 d = bediscretizer.MultivariateDiscretizer(data, 'Iris')
-d.fit()
-d.draw_structure_to_file()
+d.learn_structure(order=[4,0,1,2,3])
+print(d.discretization)
 \end{lstlisting}
