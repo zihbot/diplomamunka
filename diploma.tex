@@ -47,7 +47,7 @@ sorting=nyt
 \newcommand{\vikkonzulens}{Dr.~Antal Péter}
 \newcommand{\vikcim}{Bayes-hálók tanulása paraméterek diszkretizálásának integrálásával}
 \newcommand{\viktanszek}{Méréstechnika és Információs Rendszerek Tanszék}
-\newcommand{\vikdoktipus}{Diplomamunka}
+\newcommand{\vikdoktipus}{Diplomaterv}
 \newcommand{\argmin}{\mathop{\mathrm{arg\,min}}}
 \newcommand\descitem[1]{\item{\bfseries #1}}
 
@@ -148,10 +148,14 @@ aboveskip=10pt}
 \begin{document}
 \singlespacing
 
-\pagenumbering{arabic}
+\pagenumbering{gobble}
 \onehalfspacing
 \include{titlepage}
 \tableofcontents\vfill
+\include{declaration} %TODO Hallgatói nyilatkozat -- TDK és OTDK esetén törlendő!
+\include{abstract}    %TODO Összefoglaló -- TDK és OTDK esetén nem kötelező
+
+\pagenumbering{arabic}
 \include{bevezeto}
 \include{01-fogalommagyarazat}
 \include{02-valoszinusegelmelet}
@@ -165,9 +169,10 @@ aboveskip=10pt}
 \include{06-kiertekelesszintetikus}
 %%Tesztelés valós adatokon
 \include{07-kiertekelesvalos}
-%Értékelés
 %Összefoglalás
 \include{osszefoglalas}
+
+\include{acknowledgement}
 
 %\listoffigures\addcontentsline{toc}{chapter}{Ábrák jegyzéke}
 %\listoftables\addcontentsline{toc}{chapter}{Táblázatok jegyzéke}
@@ -177,7 +182,7 @@ aboveskip=10pt}
 \addcontentsline{toc}{chapter}{Irodalomjegyzék}
 %\bibliographystyle{plain}
 
-%\include{appendices}
+\include{appendices}
 
 \label{page:last}
 \end{document}

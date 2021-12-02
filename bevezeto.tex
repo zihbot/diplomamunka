@@ -1,21 +1,21 @@
 %----------------------------------------------------------------------------
 \chapter*{Bevezetés}\addcontentsline{toc}{chapter}{Bevezetés}
 %----------------------------------------------------------------------------
-Kauzalitás modellezésére gyakori a Bayes-hálók használata. Ezen modellek a diszkrét változók közötti kapcsolatot írják le. Ezért a tanításukat is diszkrét adatokon kell végezni. A mérhető, nyers adatok azonban gyakran tartalmaznak folytonos változókat. Ezeknek a diszkretizálására újabb eljárások kifejlesztése továbbra is folyamatban van. Jelen Diplomamunka az egyik új diszkretizációs eljárás köré épül és egy automatizált Bayes-háló tanító könyvtárat mutat be, mely ezt az eljárást használja. Az új eljárást Chen et al. publikálta \cite{chen2017learning}.
+Kauzalitás modellezésére gyakori a Bayes-hálók használata. Ezen modellek a diszkrét változók közötti kapcsolatot írják le. Ezért a tanításukat is diszkrét adatokon kell végezni. A mérhető, nyers adatok azonban gyakran tartalmaznak folytonos változókat. Ezeknek a diszkretizálására újabb eljárások kifejlesztése továbbra is folyamatban van. Jelen Diplomaterv az egyik új diszkretizációs eljárás köré épül és egy automatizált Bayes-háló tanító könyvtárat mutat be, mely ezt az eljárást használja. Az új eljárást Chen et al. publikálta \cite{chen2017learning}.
 
 Az orvosi laboratóriumi diagnosztika területe az egyik felhasználója a kauzalitásos modelleknek. Ennek oka, hogy a betegség és tünetek összefüggéseire építhetők Bayes-hálók. A tünetek pedig a vérképben is megjelenhetnek. Így a vérben és más testnedvekben található részecskék tulajdonságait, koncentrációját mérve felderíthetők betegségek, ha van ezekhez készült modell. A mért változók a laboratóriumi paraméterek, és mivel ezek mért eredmények, diszkretizálandók. Ezért az új eljárást ilyen típusú adatokon is tesztelendő.
 
 A Diplomamunkának három kitűzött célja van. Az első a jelenlegi diszkretizációs módszerek bemutatása. Ehhez a felhasznált algoritmusok, kifejezések magyarázatára is szükség van. A második a referenciamódszer implementálásának bemutatása. A harmadik az elkészült rendszerrel szintetikus és valós adatsorok kiértékelése, az eredmények bemutatása és értelmezése. A valós adatok tartalmazzanak laboratóriumi paramétereket, és az eljárás használhatóságát vizsgálja ilyen esetekben.
 
-A Bevezetés fejezet tartalmazza a Diplomamunka célját, szerkezetét és a fő fejezetek tartalmát. Ez segít a dokumentum átlátásában.
+A Bevezetés fejezet tartalmazza a Diplomaterv célját, szerkezetét és a fő fejezetek tartalmát. Ez segít a dokumentum átlátásában.
 
 A Fogalommagyarázat című fejezetben szerepelnek a statisztikai alapfogalmak. Később csak hivatkozás történik ezekre, ismeretük szükséges az algoritmus megértéséhez.
 
-A Valószínűségelmélet fejezet összefoglalja a bayesiánus statisztika azon részeit, melyeket a Diplomamunka később használ. Emellett példákat ad a könnyebb befogadáshoz. Itt szerepel az algoritmus megértéséhez szükséges Bayes-i következtetés ismertetése, valamint a Bayes-hálókról adott áttekintés.
+A Valószínűségelmélet fejezet összefoglalja a bayesiánus statisztika azon részeit, melyeket a Diplomaterv később használ. Emellett példákat ad a könnyebb befogadáshoz. Itt szerepel az algoritmus megértéséhez szükséges Bayes-i következtetés ismertetése, valamint a Bayes-hálókról adott áttekintés.
 
 A Jelenlegi módszerek fejezetben a diszkretizációs algoritmusokról szerepel egy áttekintés. Bemutatja a különbséget az egyváltozós és a többváltozós diszkretizáció között. A Bayes-hálók tanításához a struktúrájának a meghatározása is szükséges, erre a célra készült algoritmusok is bemutatásra kerülnek.
 
-Az Algoritmikus többváltozós diszkretizáció fejezetben a Diplomamunka referenciájaként szolgáló módszer leírása szerepel. Emellett a használt algoritmusokat kifejti, a lépések feladatát értelmezi. Az itt szereplő módszer az elkészült implementáció központi eleme.
+Az Algoritmikus többváltozós diszkretizáció fejezetben a Diplomaterv referenciájaként szolgáló módszer leírása szerepel. Emellett a használt algoritmusokat kifejti, a lépések feladatát értelmezi. Az itt szereplő módszer az elkészült implementáció központi eleme.
 
 A Bayes-döntés alapján diszkretizáló csomag fejezet dokumentálja az elkészült csomagot. Részletesen kifejtett követelmények szerepelnek, amik az implementációs célokat tűzik ki. Bemutatja a rendszer felépítését és működését.
 

@@ -1,7 +1,7 @@
 %----------------------------------------------------------------------------
 \chapter{Összefoglalás}
 %----------------------------------------------------------------------------
-A Diplomamunka célja a jelenlegi diszkretizációs eljárások bemutatása, egy új eljárás implementálása és ennek kiértékelése szintetikus és valós adatokon volt.
+A Diplomaterv célja a jelenlegi diszkretizációs eljárások bemutatása, egy új eljárás implementálása és ennek kiértékelése szintetikus és valós adatokon volt.
 
 Először ismertette a szükséges alapismereteket, kezdve a statisztikai elnevezésektől a bayesiánus valószínűségelmélet bemutatásán át a javasolt algoritmusig. Az új eljárást bemutatta, valamint a lépéseinek értelmezte az okait is.
 
@@ -12,4 +12,4 @@ Végül a különböző adatsorokkal való kiértékelés következett. Elsőké
 \section{Továbbhaladási lehetőségek}
 A k2 algoritmusnak szüksége van egy topológiai sorrendre a futáshoz. Ennek meghatározása információelméleti módszerekkel bemutatásra került és működőképesnek bizonyult. Ám az információ entrópia meghatározásához a kezdeti diszkretizációs elv alapján készült diszkrét adatsor volt szolgáltatva, mert az ehhez szükséges algoritmus leírása diszkrét adatokat várt el. Ez érthető, hiszen a Bayes-háló struktúrájának meghatározásához általában ilyen adat áll rendelkezésre. Ám jelenleg pont a diszkretizálás a cél, ezért rendelkezésünkre áll magasabb információ tartalmú folytonos adatsor is. Az információelméletben folytonos adatsoroknak is meghatározható az entrópiája, ezért lehetne próbálkozni a folytonos adatokon meghatározott entrópiával is, valamint az így meghatározott feltételes entrópiával és együttes információval. A nehézség, hogy ekkor vegyesen lennének benne folytonos és diszkrét változók, de lehetséges, hogy így jobb topológiai sorrend lenne elérhető.
 
-Másik irány az implementációnál bemutatott, jelenleg nem használt algoritmusok ötletének fejlesztése. A referencia algoritmusban a k2-es élhozzáadás után diszkretizáció következik. Más struktúra tanuló algoritmusoknál is tesztelhető, hogy új él után diszkretizációs lépést futtassunk. A Diplomamunka során implementált ilyen típusú próbálkozás rossz működésének oka lehet, hogy mindig csak a teljesen betanított hálóból tudott élt átvenni. Saját implementációnál elérhető lenne, hogy egy él megtalálása után azonnal visszatérjen, hogy lehetőséget adjon a diszkretizációra.
+Másik irány az implementációnál bemutatott, jelenleg nem használt algoritmusok ötletének fejlesztése. A referencia algoritmusban a k2-es élhozzáadás után diszkretizáció következik. Más struktúra tanuló algoritmusoknál is tesztelhető, hogy új él után diszkretizációs lépést futtassunk. A Diplomaterv során implementált ilyen típusú próbálkozás rossz működésének oka lehet, hogy mindig csak a teljesen betanított hálóból tudott élt átvenni. Saját implementációnál elérhető lenne, hogy egy él megtalálása után azonnal visszatérjen, hogy lehetőséget adjon a diszkretizációra.

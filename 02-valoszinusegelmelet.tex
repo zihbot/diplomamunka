@@ -2,7 +2,7 @@
 \chapter{Valószínűségelmélet}
 %----------------------------------------------------------------------------
 
-Az alábbi fejezetben a Bayes-tétel és annak következményei szerepelnek. Ezek ismerete szükséges a Diplomamunka központi algoritmusának megértéséhez.
+Az alábbi fejezetben a Bayes-tétel és annak következményei szerepelnek. Ezek ismerete szükséges a Diplomaterv központi algoritmusának megértéséhez.
 
 \section{Bayes-tétel}
 Jelölje az A esemény bekövetkezésének valószínűségét $P(A)$, $AB = A \cap B$ azt az eseményt, amikor A és B is bekövetkezik, és $P(A|B)$ az A feltételes valószínűségét B-re nézve. Ha A és B független események a feltételes valószínűség definíciójából következik, hogy
@@ -29,7 +29,7 @@ A reprezentáció értelmezése kiterjeszthető. Egyrészt az eseményrendszerek
     \label{fig:bayes-halo-tudasrep}
 \end{figure}
 
-Emellett ismert adatsorok alapján is felépíthetők ilyen rendszerek. Jelen Diplomamunka célja egy olyan könyvtár készítése, mely egy statisztikai adatsor alapján építi fel a tudásreprezentációra szolgáló Bayes-hálót.
+Emellett ismert adatsorok alapján is felépíthetők ilyen rendszerek. Jelen Diplomaterv célja egy olyan könyvtár készítése, mely egy statisztikai adatsor alapján építi fel a tudásreprezentációra szolgáló Bayes-hálót.
 
 A \ref{fig:bayes-halo-tudasrep} ábrán látható, hogyan használható a Bayes-háló tudásreprezentációra. Egy számítógép processzorának meghibásodását, és annak jeleit modellezi. A valószínűségi változók ebben az esetben binárisok, a + jelöli az igaz értéket. A processzor meghibásodásának valószínűsége 1\%. Annak a valószínűsége, hogy nem hibásodott meg, értelemszerűen $100\%-1\%=99\%$. Látható, hogy a $P(-)$\footnote{Ez egy egyszerűsített jelölésmód. Az X valószínűségi változóra a $P(+)$ azt a valószínűséget jelzi, hogy X igaz értéket vesz fel, tehát $P(+) = P(X=+) = P(X=True)$. Amikor egyértelmű, mely változóra vonatkozik a jelölés, ebben a Diplomamunkában az első jelölésmódot alkalmazom.}, $P(-|+)$, $P(-|-)$ kifejezések felírása redundáns, mivel a $+$ párjaikat 1-re egészítik ki.
 
